@@ -530,6 +530,14 @@ define SetupNativeCompilation
             # to be rebuilt properly.
             $$($1_DEBUGINFO_ZIP): $$($1_DEBUGINFO_FILES) $$($1_TARGET)
 		$(CD) $$($1_OBJECT_DIR) \
+		&& pwd \
+		&& ls -lah \
+		&& echo OBJECT_DIR: $$($1_OBJECT_DIR) \
+		&& echo OUTPUT_DIR: $$($1_OUTPUT_DIR) \
+		&& echo 1: $(ZIP) -q $$@ $$($1_DEBUGINFO_FILES) \
+		&& echo 2: $(ZIP) -q $$@ $$(notdir $$($1_DEBUGINFO_FILES)) \
+		&& echo 3: $(ZIP) -q $$@ $$(subst $$($1_OUTPUT_DIR)/,, $$($1_DEBUGINFO_FILES)) \
+		&& echo 4: $(ZIP) -q $$@ $$(subst $$($1_OBJECT_DIR)/,, $$($1_DEBUGINFO_FILES)) \
 		&& $(ZIP) -q $$@ $$(notdir $$($1_DEBUGINFO_FILES))
           endif
         else
