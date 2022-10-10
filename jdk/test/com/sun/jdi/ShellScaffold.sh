@@ -203,6 +203,13 @@ findPid()
         Windows* | CYGWIN*)
             # Don't use ps on cygwin since it sometimes misses
             # some processes (!).
+            echo "PID: $1"
+            echo "tasklist /NH:"
+            tasklist /NH || :
+            echo "ps -W:"
+            ps -W || :
+            echo "ps:"
+            ps || :
             tasklist /NH | $grep " $1 " > $devnull 2>&1
             res=$?
             ;;
