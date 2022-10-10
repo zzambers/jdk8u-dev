@@ -180,7 +180,7 @@ jobs:
 
       - name: Pack artifacts
         run: |
-          tar -cf jdk-${{ env.JDK_VERSION }}-internal+0_linux-x64_bin${{ matrix.artifact }}.tar.gz -C jdk/build/linux-x64/images j2sdk-image
+          tar -czf jdk-${{ env.JDK_VERSION }}-internal+0_linux-x64_bin${{ matrix.artifact }}.tar.gz -C jdk/build/linux-x64/images j2sdk-image
 
       - name: Persist test bundles
         uses: actions/upload-artifact@v2
@@ -536,7 +536,7 @@ jobs:
 
       - name: Pack artifacts
         run: |
-          tar -cf jdk-${{ env.JDK_VERSION }}-internal+0_linux-x86_bin${{ matrix.artifact }}.tar.gz -C jdk/build/linux-x86/images j2sdk-image
+          tar -czf jdk-${{ env.JDK_VERSION }}-internal+0_linux-x86_bin${{ matrix.artifact }}.tar.gz -C jdk/build/linux-x86/images j2sdk-image
 
       - name: Persist test bundles
         uses: actions/upload-artifact@v2
@@ -1367,7 +1367,7 @@ jobs:
 
       - name: Pack artifacts
         run: |
-          tar -cf jdk-${{ env.JDK_VERSION }}-internal+0_osx-x64_bin${{ matrix.artifact }}.tar.gz -C jdk/build/macos-x64/images j2sdk-image
+          tar -czf jdk-${{ env.JDK_VERSION }}-internal+0_osx-x64_bin${{ matrix.artifact }}.tar.gz -C jdk/build/macos-x64/images j2sdk-image
 
       - name: Persist test bundles
         uses: actions/upload-artifact@v2
