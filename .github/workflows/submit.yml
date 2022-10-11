@@ -614,7 +614,7 @@ jobs:
       - name: Install dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install openjdk-8-jdk
+          sudo apt-get install openjdk-8-jdk gcc-9-multilib g++-9-multilib
 
       - name: Unpack jdk
         run: |
