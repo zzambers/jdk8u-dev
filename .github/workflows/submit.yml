@@ -950,6 +950,7 @@ jobs:
           $env:FREETYPE_HOME = "$env:GITHUB_WORKSPACE\freetype" ;
           $env:JT_HOME = cygpath "$HOME/jtreg" ;
           & bash configure
+          --with-jvm-variants=server,client
           --with-conf-name=windows-x86
           --with-toolchain-version=2010
           --with-msvcr-dll='C:\Windows\SysWOW64\msvcr100.dll'
