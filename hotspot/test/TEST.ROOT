@@ -31,3 +31,7 @@ keys=cte_test jcmd nmt regression gc stress
 
 groups=TEST.groups [closed/TEST.groups]
 requires.properties=sun.arch.data.model
+
+# Path to libraries in the topmost test directory. This is needed so @library
+# does not need ../../ notation to reach them
+external.lib.roots = ../../
