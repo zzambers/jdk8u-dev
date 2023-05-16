@@ -1045,13 +1045,6 @@ jobs:
       - name: Checkout the source
         uses: actions/checkout@v3
 
-      - name: Restore boot JDK from cache
-        id: bootjdk
-        uses: actions/cache@v3
-        with:
-          path: ~/bootjdk/${{ env.BOOT_JDK_VERSION }}
-          key: bootjdk-${{ runner.os }}-${{ env.BOOT_JDK_VERSION }}-${{ env.BOOT_JDK_SHA256 }}-v1
-
       - name: Download boot JDK
         run: |
           mkdir -p "$HOME\bootjdk\$env:BOOT_JDK_VERSION"
@@ -1060,7 +1053,6 @@ jobs:
           $FileHash.Hash -eq $env:BOOT_JDK_SHA256
           & unzip "$HOME/bootjdk/$env:BOOT_JDK_FILENAME" -d "$HOME/bootjdk/$env:BOOT_JDK_VERSION"
           Get-ChildItem "$HOME\bootjdk\$env:BOOT_JDK_VERSION\*\*" | Move-Item -Destination "$HOME\bootjdk\$env:BOOT_JDK_VERSION"
-        if: steps.bootjdk.outputs.cache-hit != 'true'
 
       - name: Restore cygwin installer from cache
         id: cygwin-installer
@@ -1201,13 +1193,6 @@ jobs:
       - name: Checkout the source
         uses: actions/checkout@v3
 
-      - name: Restore boot JDK from cache
-        id: bootjdk
-        uses: actions/cache@v3
-        with:
-          path: ~/bootjdk/${{ env.BOOT_JDK_VERSION }}
-          key: bootjdk-${{ runner.os }}-${{ env.BOOT_JDK_VERSION }}-${{ env.BOOT_JDK_SHA256 }}-v1
-
       - name: Download boot JDK
         run: |
           mkdir -p "$HOME\bootjdk\$env:BOOT_JDK_VERSION"
@@ -1216,7 +1201,6 @@ jobs:
           $FileHash.Hash -eq $env:BOOT_JDK_SHA256
           & unzip "$HOME/bootjdk/$env:BOOT_JDK_FILENAME" -d "$HOME/bootjdk/$env:BOOT_JDK_VERSION"
           Get-ChildItem "$HOME\bootjdk\$env:BOOT_JDK_VERSION\*\*" | Move-Item -Destination "$HOME\bootjdk\$env:BOOT_JDK_VERSION"
-        if: steps.bootjdk.outputs.cache-hit != 'true'
 
       - name: Restore cygwin installer from cache
         id: cygwin-installer
