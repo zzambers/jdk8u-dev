@@ -200,12 +200,12 @@ jobs:
       fail-fast: false
       matrix:
         test:
-          - jdk/tier1
+          - jdk/security
           - langtools/tier1
           - hotspot/tier1
         include:
-          - test: jdk/tier1
-            suites: jdk_tier1
+          - test: jdk/security
+            suites: jdk_security
           - test: langtools/tier1
             suites: langtools_tier1
           - test: hotspot/tier1
@@ -552,12 +552,12 @@ jobs:
       fail-fast: false
       matrix:
         test:
-          - jdk/tier1
+          - jdk/security
           - langtools/tier1
           - hotspot/tier1
         include:
-          - test: jdk/tier1
-            suites: jdk_tier1
+          - test: jdk/security
+            suites: jdk_security
           - test: langtools/tier1
             suites: langtools_tier1
           - test: hotspot/tier1
@@ -1026,12 +1026,12 @@ jobs:
       fail-fast: false
       matrix:
         test:
-          - jdk/tier1
+          - jdk/security
           - langtools/tier1
           - hotspot/tier1
         include:
-          - test: jdk/tier1
-            suites: jdk_tier1
+          - test: jdk/security
+            suites: jdk_security
           - test: langtools/tier1
             suites: langtools_tier1
           - test: hotspot/tier1
@@ -1183,12 +1183,12 @@ jobs:
       fail-fast: false
       matrix:
         test:
-          - jdk/tier1
+          - jdk/security
           - langtools/tier1
           - hotspot/tier1
         include:
-          - test: jdk/tier1
-            suites: jdk_tier1
+          - test: jdk/security
+            suites: jdk_security
           - test: langtools/tier1
             suites: langtools_tier1
           - test: hotspot/tier1
@@ -1438,12 +1438,12 @@ jobs:
       fail-fast: false
       matrix:
         test:
-          - jdk/tier1
+          - jdk/security
           - langtools/tier1
           - hotspot/tier1
         include:
-          - test: jdk/tier1
-            suites: jdk_tier1
+          - test: jdk/security
+            suites: jdk_security
           - test: langtools/tier1
             suites: langtools_tier1
           - test: hotspot/tier1
