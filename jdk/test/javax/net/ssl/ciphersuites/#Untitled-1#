@@ -1,0 +1,1515 @@
+Some failures were discovered with updated hotspot targets: https://github.com/adoptium/aqa-tests/pull/5367#issuecomment-2160774225
+
+**compiler/arguments/CheckCICompilerCount.java.CheckCICompilerCount**
+```
+...
+14:49:33  Command line: [F:\workspace\workspace\Grinder\jdkbinary\j2sdk-image\bin\java.exe -cp F:\workspace\workspace\Grinder\aqa-tests\TKG\output_17180237581877\hotspot_compiler_0\work\classes\1\compiler\arguments\CheckCICompilerCount.d;F:\workspace\workspace\Grinder\aqa-tests\openjdk\openjdk-jdk\test\hotspot\jtreg\compiler\arguments;F:\workspace\workspace\Grinder\aqa-tests\TKG\output_17180237581877\hotspot_compiler_0\work\classes\1\test\lib;F:\workspace\workspace\Grinder\aqa-tests\TKG\output_17180237581877\hotspot_compiler_0\work\classes\1;F:\workspace\workspace\Grinder\jvmtest\openjdk\jtreg\lib\javatest.jar;F:\workspace\workspace\Grinder\jvmtest\openjdk\jtreg\lib\jtreg.jar;F:\workspace\workspace\Grinder\jvmtest\openjdk\jtreg\lib\junit-platform-console-standalone-1.9.2.jar;F:\workspace\workspace\Grinder\jvmtest\openjdk\jtreg\lib\testng-7.3.0.jar;F:\workspace\workspace\Grinder\jvmtest\openjdk\jtreg\lib\guice-5.1.0.jar;F:\workspace\workspace\Grinder\jvmtest\openjdk\jtreg\lib\jcommander-1.82.jar -client -XX:+TieredCompilation -XX:+PrintFlagsFinal -XX:CICompilerCount=1 -version ]
+14:49:33  [2024-06-10T12:49:32.072779300Z] Gathering output for process 4908
+14:49:33  [2024-06-10T12:49:32.073780Z] Waiting for completion for process 4908
+14:49:33  [2024-06-10T12:49:32.263785800Z] Waiting for completion finished for process 4908
+14:49:33  [2024-06-10T12:49:32.264786200Z] Waiting for completion for process 4908
+14:49:33  [2024-06-10T12:49:32.264786200Z] Waiting for completion finished for process 4908
+14:49:33  STDERR:
+14:49:33   stdout: [[Global flags]
+14:49:33        int ActiveProcessorCount                     = -1                                        {product} {default}
+...
+14:49:33       bool ZeroTLAB                                 = false                                     {product} {default}
+14:49:33  ]
+14:49:33   exitValue = 0
+14:49:33  
+14:49:33  java.lang.RuntimeException: java.lang.RuntimeException: Expected to get exit value of [1]
+14:49:33  
+14:49:33  	at compiler.arguments.CheckCICompilerCount.verifyValidOption(CheckCICompilerCount.java:203)
+14:49:33  	at compiler.arguments.CheckCICompilerCount.main(CheckCICompilerCount.java:222)
+14:49:33  	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+14:49:33  	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+14:49:33  	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+14:49:33  	at java.base/java.lang.reflect.Method.invoke(Method.java:569)
+14:49:33  	at com.sun.javatest.regtest.agent.MainActionHelper$AgentVMRunnable.run(MainActionHelper.java:333)
+14:49:33  	at java.base/java.lang.Thread.run(Thread.java:840)
+14:49:33  Caused by: java.lang.RuntimeException: Expected to get exit value of [1]
+14:49:33  
+14:49:33  	at jdk.test.lib.process.OutputAnalyzer.shouldHaveExitValue(OutputAnalyzer.java:489)
+14:49:33  	at compiler.arguments.CheckCICompilerCount.verifyValidOption(CheckCICompilerCount.java:197)
+14:49:33  	... 7 more
+...
+```
+
+**gc/shenandoah/compiler/TestBarrierAboveProj.java**
+```
+...
+15:20:28  messages:
+15:20:28  command: main -XX:+UseShenandoahGC -XX:-BackgroundCompilation -XX:LoopMaxUnroll=1 TestBarrierAboveProj
+15:20:28  reason: User specified action: run main/othervm -XX:+UseShenandoahGC -XX:-BackgroundCompilation -XX:LoopMaxUnroll=1 TestBarrierAboveProj 
+15:20:28  started: Mon Jun 10 13:20:26 GMT 2024
+15:20:28  Mode: othervm [/othervm specified]
+15:20:28  finished: Mon Jun 10 13:20:26 GMT 2024
+15:20:28  elapsed time (seconds): 0.057
+15:20:28  configuration:
+15:20:28  STDOUT:
+15:20:28  STDERR:
+15:20:28  Unrecognized VM option 'LoopMaxUnroll=1'
+15:20:28  Error: Could not create the Java Virtual Machine.
+15:20:28  Error: A fatal exception has occurred. Program will exit.
+...
+```
+
+**gc/shenandoah/jni/CriticalNativeStress.java**
+```
+...
+15:21:08  command: main -XX:+UnlockDiagnosticVMOptions -XX:+UnlockExperimentalVMOptions -XX:+UseShenandoahGC -XX:ShenandoahGCMode=passive -XX:+ShenandoahDegeneratedGC -Xcomp -Xmx512M -XX:+CriticalJNINatives gc.shenandoah.jni.CriticalNativeStress
+15:21:08  reason: User specified action: run main/othervm/native -XX:+UnlockDiagnosticVMOptions -XX:+UnlockExperimentalVMOptions -XX:+UseShenandoahGC -XX:ShenandoahGCMode=passive -XX:+ShenandoahDegeneratedGC -Xcomp -Xmx512M -XX:+CriticalJNINatives gc.shenandoah.jni.CriticalNativeStress 
+15:21:08  started: Mon Jun 10 13:21:00 GMT 2024
+15:21:08  Mode: othervm [/othervm specified]
+15:21:08  finished: Mon Jun 10 13:21:02 GMT 2024
+15:21:08  elapsed time (seconds): 1.766
+15:21:08  configuration:
+15:21:08  STDOUT:
+15:21:08  For random generator using seed: -808456770066870809
+15:21:08  To re-run test with same seed value please add "-Djdk.test.lib.random.seed=-808456770066870809" to command line.
+15:21:08  #
+15:21:08  # A fatal error has been detected by the Java Runtime Environment:
+15:21:08  #
+15:21:08  #  EXCEPTION_ACCESS_VIOLATION (0xc0000005) at pc=0x719092eb, pid=9396, tid=8096
+15:21:08  #
+15:21:08  # JRE version: OpenJDK Runtime Environment Temurin-11.0.24+6-202406072005 (11.0.24+6) (build 11.0.24-beta+6-ea)
+15:21:08  # Java VM: OpenJDK Client VM Temurin-11.0.24+6-202406072005 (11.0.24-beta+6-ea, compiled mode, shenandoah gc, windows-x86)
+15:21:08  # Problematic frame:
+15:21:08  # V  [jvm.dll+0x92eb]
+15:21:08  #
+15:21:08  # Core dump will be written. Default location: C:\jenkins\workspace\Grinder\aqa-tests\TKG\output_17180253001568\hotspot_gc_0\JTwork\scratch\1\hs_err_pid9396.mdmp
+15:21:08  #
+15:21:08  # An error report file with more information is saved as:
+15:21:08  # C:\jenkins\workspace\Grinder\aqa-tests\TKG\output_17180253001568\hotspot_gc_0\JTwork\scratch\1\hs_err_pid9396.log
+15:21:08  #
+15:21:08  # If you would like to submit a bug report, please visit:
+15:21:08  #   https://github.com/adoptium/adoptium-support/issues
+15:21:08  # The crash happened outside the Java Virtual Machine in native code.
+15:21:08  # See problematic frame for where to report the bug.
+15:21:08  #
+...
+```
+
+**runtime/cds/appcds/LambdaEagerInit.java.LambdaEagerInit**
+```
+15:29:15  Command line: [c:\jenkins\workspace\Grinder\jdkbinary\j2sdk-image\bin\java.exe -cp C:\jenkins\workspace\Grinder\aqa-tests\TKG\output_17180259137933\hotspot_runtime_0\work\classes\0\runtime\cds\appcds\LambdaEagerInit.d;C:\jenkins\workspace\Grinder\aqa-tests\openjdk\openjdk-jdk\test\hotspot\jtreg\runtime\cds\appcds;C:\jenkins\workspace\Grinder\aqa-tests\TKG\output_17180259137933\hotspot_runtime_0\work\classes\0\test\lib;C:\jenkins\workspace\Grinder\aqa-tests\openjdk\openjdk-jdk\test\lib;C:\jenkins\workspace\Grinder\aqa-tests\TKG\output_17180259137933\hotspot_runtime_0\work\classes\0\test\hotspot\jtreg\runtime\cds\appcds;C:\jenkins\workspace\Grinder\aqa-tests\TKG\output_17180259137933\hotspot_runtime_0\work\classes\0\runtime\cds\appcds\test-classes;C:\jenkins\workspace\Grinder\aqa-tests\openjdk\openjdk-jdk\test\hotspot\jtreg\runtime\cds\appcds\test-classes;C:\jenkins\workspace\Grinder\jvmtest\openjdk\jtreg\lib\javatest.jar;C:\jenkins\workspace\Grinder\jvmtest\openjdk\jtreg\lib\jtreg.jar -ea -esa -Xmx512m -cp C:\jenkins\workspace\Grinder\aqa-tests\TKG\output_17180259137933\hotspot_runtime_0\work\scratch\1\lambda_eager.jar -Djdk.internal.lambda.disableEagerInitialization=true -Xlog:class+load,cds=debug -Xshare:on -Dtest.timeout.factor=8.0 -XX:+UnlockDiagnosticVMOptions -XX:VerifyArchivedFields=1 LambdaEagerInitTest ]
+15:29:15  [2024-06-10T13:29:09.485588300Z] Gathering output for process 11304
+15:29:15  [ELAPSED: 62 ms]
+15:29:15  [logging stdout to C:\jenkins\workspace\Grinder\aqa-tests\TKG\output_17180259137933\hotspot_runtime_0\work\scratch\1\runtime.cds.appcds.LambdaEagerInit.java-0003-exec.stdout]
+15:29:15  [logging stderr to C:\jenkins\workspace\Grinder\aqa-tests\TKG\output_17180259137933\hotspot_runtime_0\work\scratch\1\runtime.cds.appcds.LambdaEagerInit.java-0003-exec.stderr]
+15:29:15  [STDERR]
+15:29:15  An error has occurred while processing the shared archive file.
+15:29:15  Specified shared archive not found (c:\jenkins\workspace\Grinder\jdkbinary\j2sdk-image\bin\client\classes.jsa).
+15:29:15  
+15:29:15  [2024-06-10T13:29:09.547589800Z] Waiting for completion for process 11304
+15:29:15  [2024-06-10T13:29:09.548589600Z] Waiting for completion finished for process 11304
+15:29:15  STDERR:
+15:29:15   stdout: [[0.014s][info][cds] trying to map c:\jenkins\workspace\Grinder\jdkbinary\j2sdk-image\bin\client\classes.jsa
+15:29:15  Error occurred during initialization of VM
+15:29:15  Unable to use shared archive.
+15:29:15  ];
+15:29:15   stderr: [An error has occurred while processing the shared archive file.
+15:29:15  Specified shared archive not found (c:\jenkins\workspace\Grinder\jdkbinary\j2sdk-image\bin\client\classes.jsa).
+15:29:15  ]
+15:29:15   exitValue = 1
+15:29:15  
+15:29:15  java.lang.RuntimeException: '.class.load. java.util.stream.Collectors[$][$]Lambda[$].*/0x.*source:.*java.*util.*stream.*Collectors' missing from stdout/stderr 
+15:29:15  
+15:29:15  	at jdk.test.lib.process.OutputAnalyzer.shouldMatch(OutputAnalyzer.java:340)
+15:29:15  	at LambdaEagerInit.testDefaultArchiveWithEagerInitializationEnabled(LambdaEagerInit.java:117)
+15:29:15  	at LambdaEagerInit.main(LambdaEagerInit.java:56)
+15:29:15  	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+15:29:15  	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+15:29:15  	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+15:29:15  	at java.base/java.lang.reflect.Method.invoke(Method.java:569)
+15:29:15  	at com.sun.javatest.regtest.agent.MainWrapper$MainTask.run(MainWrapper.java:138)
+15:29:15  	at java.base/java.lang.Thread.run(Thread.java:840)
+```
+
+**runtime/logging/loadLibraryTest/LoadLibraryTest.java.LoadLibraryTest**
+```
+...
+15:35:54  STDOUT:
+15:35:54  Command line: [c:\jenkins\workspace\Grinder\jdkbinary\j2sdk-image\bin\java.exe -cp C:\jenkins\workspace\Grinder\aqa-tests\TKG\output_17180259137933\hotspot_runtime_0\work\classes\2\runtime\logging\loadLibraryTest\LoadLibraryTest.d;C:\jenkins\workspace\Grinder\aqa-tests\openjdk\openjdk-jdk\test\hotspot\jtreg\runtime\logging\loadLibraryTest;C:\jenkins\workspace\Grinder\aqa-tests\TKG\output_17180259137933\hotspot_runtime_0\work\classes\2\test\lib;C:\jenkins\workspace\Grinder\jvmtest\openjdk\jtreg\lib\javatest.jar;C:\jenkins\workspace\Grinder\jvmtest\openjdk\jtreg\lib\jtreg.jar;C:\jenkins\workspace\Grinder\jvmtest\openjdk\jtreg\lib\junit-platform-console-standalone-1.9.2.jar;C:\jenkins\workspace\Grinder\jvmtest\openjdk\jtreg\lib\testng-7.3.0.jar;C:\jenkins\workspace\Grinder\jvmtest\openjdk\jtreg\lib\guice-5.1.0.jar;C:\jenkins\workspace\Grinder\jvmtest\openjdk\jtreg\lib\jcommander-1.82.jar -Xbootclasspath/a:. -XX:+UnlockDiagnosticVMOptions -XX:+WhiteBoxAPI -Xmn8m -Xlog:library=info -Djava.library.path=c:\jenkins\workspace\Grinder\jdkbinary\openjdk-test-image\hotspot\jtreg\native -XX:+UnlockDiagnosticVMOptions -XX:+WhiteBoxAPI LoadLibraryTest$LoadLibrary C:\jenkins\workspace\Grinder\aqa-tests\TKG\output_17180259137933\hotspot_runtime_0\work\classes\2\runtime\logging\loadLibraryTest\LoadLibraryTest.d ]
+15:35:54  [2024-06-10T13:35:39.875245200Z] Gathering output for process 9384
+15:35:54  [2024-06-10T13:35:39.878245300Z] Waiting for completion for process 9384
+15:35:54  [2024-06-10T13:35:40.240247800Z] Waiting for completion finished for process 9384
+15:35:54  [2024-06-10T13:35:40.240247800Z] Waiting for completion for process 9384
+15:35:54  [2024-06-10T13:35:40.240247800Z] Waiting for completion finished for process 9384
+15:35:54  STDERR:
+15:35:54   stdout: [[0.194s][info][library] Failed to find _JNI_OnLoad_jimage@8 in library with handle 0x008f0000
+15:35:54  [0.194s][info][library] Failed to find JNI_OnLoad_jimage in library with handle 0x008f0000
+15:35:54  [0.195s][info][library] Loaded library C:\jenkins\workspace\Grinder\jdkbinary\j2sdk-image\bin\jimage.dll, handle 0x72e50000
+15:35:54  [0.195s][info][library] Failed to find _JNI_OnLoad@8 in library with handle 0x72e50000
+15:35:54  [0.195s][info][library] Failed to find JNI_OnLoad in library with handle 0x72e50000
+15:35:54  [0.195s][info][library] Found _Java_jdk_internal_jimage_NativeImageBuffer_getNativeMap@12 in library with handle 0x72e50000
+15:35:54  [0.197s][info][library] Failed to find _JNI_OnLoad_net@8 in library with handle 0x008f0000
+15:35:54  [0.197s][info][library] Failed to find JNI_OnLoad_net in library with handle 0x008f0000
+15:35:54  [0.198s][info][library] Loaded library C:\jenkins\workspace\Grinder\jdkbinary\j2sdk-image\bin\net.dll, handle 0x72e00000
+15:35:54  [0.198s][info][library] Found _JNI_OnLoad@8 in library with handle 0x72e00000
+15:35:54  [0.199s][info][library] Failed to find _JNI_OnLoad_nio@8 in library with handle 0x008f0000
+15:35:54  [0.199s][info][library] Failed to find JNI_OnLoad_nio in library with handle 0x008f0000
+15:35:54  [0.200s][info][library] Loaded library C:\jenkins\workspace\Grinder\jdkbinary\j2sdk-image\bin\nio.dll, handle 0x72c70000
+15:35:54  [0.200s][info][library] Found _JNI_OnLoad@8 in library with handle 0x72c70000
+15:35:54  [0.200s][info][library] Failed to find _Java_sun_nio_fs_WindowsNativeDispatcher_initIDs@8 in library with handle 0x72e50000
+15:35:54  [0.200s][info][library] Failed to find _Java_sun_nio_fs_WindowsNativeDispatcher_initIDs@8 in library with handle 0x72e00000
+15:35:54  [0.200s][info][library] Found _Java_sun_nio_fs_WindowsNativeDispatcher_initIDs@8 in library with handle 0x72c70000
+15:35:54  [0.202s][info][library] Failed to find _Java_sun_nio_fs_WindowsNativeDispatcher_CreateFile0@40 in library with handle 0x72e50000
+15:35:54  [0.202s][info][library] Failed to find _Java_sun_nio_fs_WindowsNativeDispatcher_CreateFile0@40 in library with handle 0x72e00000
+15:35:54  [0.202s][info][library] Found _Java_sun_nio_fs_WindowsNativeDispatcher_CreateFile0@40 in library with handle 0x72c70000
+15:35:54  [0.203s][info][library] Failed to find _JNI_OnLoad_net@8 in library with handle 0x008f0000
+15:35:54  [0.203s][info][library] Failed to find JNI_OnLoad_net in library with handle 0x008f0000
+15:35:54  [0.203s][info][library] Failed to find _JNI_OnLoad_nio@8 in library with handle 0x008f0000
+15:35:54  [0.203s][info][library] Failed to find JNI_OnLoad_nio in library with handle 0x008f0000
+15:35:54  [0.204s][info][library] Failed to find _Java_sun_nio_ch_IOUtil_initIDs@8 in library with handle 0x72e50000
+15:35:54  [0.204s][info][library] Failed to find _Java_sun_nio_ch_IOUtil_initIDs@8 in library with handle 0x72e00000
+15:35:54  [0.204s][info][library] Found _Java_sun_nio_ch_IOUtil_initIDs@8 in library with handle 0x72c70000
+15:35:54  [0.204s][info][library] Failed to find _Java_sun_nio_ch_IOUtil_iovMax@8 in library with handle 0x72e50000
+15:35:54  [0.204s][info][library] Failed to find _Java_sun_nio_ch_IOUtil_iovMax@8 in library with handle 0x72e00000
+15:35:54  [0.204s][info][library] Found _Java_sun_nio_ch_IOUtil_iovMax@8 in library with handle 0x72c70000
+15:35:54  [0.204s][info][library] Failed to find _Java_sun_nio_ch_FileChannelImpl_initIDs@8 in library with handle 0x72e50000
+15:35:54  [0.204s][info][library] Failed to find _Java_sun_nio_ch_FileChannelImpl_initIDs@8 in library with handle 0x72e00000
+15:35:54  [0.204s][info][library] Found _Java_sun_nio_ch_FileChannelImpl_initIDs@8 in library with handle 0x72c70000
+15:35:54  [0.204s][info][library] Failed to find _Java_sun_nio_ch_FileChannelImpl_maxDirectTransferSize0@8 in library with handle 0x72e50000
+15:35:54  [0.204s][info][library] Failed to find _Java_sun_nio_ch_FileChannelImpl_maxDirectTransferSize0@8 in library with handle 0x72e00000
+15:35:54  [0.204s][info][library] Found _Java_sun_nio_ch_FileChannelImpl_maxDirectTransferSize0@8 in library with handle 0x72c70000
+15:35:54  [0.221s][info][library] Failed to find _JNI_OnLoad_LoadLibraryClass@8 in library with handle 0x008f0000
+15:35:54  [0.221s][info][library] Failed to find JNI_OnLoad_LoadLibraryClass in library with handle 0x008f0000
+15:35:54  [0.221s][info][library] Failed to find _JNI_OnLoad_LoadLibraryClass@8 in library with handle 0x008f0000
+15:35:54  [0.221s][info][library] Failed to find JNI_OnLoad_LoadLibraryClass in library with handle 0x008f0000
+15:35:54  [0.249s][info][library] Loaded library C:\jenkins\workspace\Grinder\jdkbinary\openjdk-test-image\hotspot\jtreg\native\LoadLibraryClass.dll, handle 0x71df0000
+15:35:54  [0.249s][info][library] Failed to find _JNI_OnLoad@8 in library with handle 0x71df0000
+15:35:54  [0.249s][info][library] Failed to find JNI_OnLoad in library with handle 0x71df0000
+15:35:54  [0.249s][info][library] Failed to find _Java_LoadLibraryTest_00024LoadLibraryClass_nTest@8 in library with handle 0x71df0000
+15:35:54  [0.249s][info][library] Found _Java_LoadLibraryTest_00024LoadLibraryClass_nTest__@8 in library with handle 0x71df0000
+15:35:54  [0.276s][info][library] Failed to find _JNI_OnUnload@8 in library with handle 0x71df0000
+15:35:54  [0.276s][info][library] Failed to find JNI_OnUnload in library with handle 0x71df0000
+15:35:54  [0.276s][info][library] Unloaded library with handle 0x71df0000
+15:35:54  Class LoadLibraryClass was unloaded
+15:35:54  [0.304s][info][library] Failed to find _JNI_OnLoad_LoadLibraryClass@8 in library with handle 0x008f0000
+15:35:54  [0.304s][info][library] Failed to find JNI_OnLoad_LoadLibraryClass in library with handle 0x008f0000
+15:35:54  [0.304s][info][library] Failed to find _JNI_OnLoad_LoadLibraryClass@8 in library with handle 0x008f0000
+15:35:54  [0.305s][info][library] Failed to find JNI_OnLoad_LoadLibraryClass in library with handle 0x008f0000
+15:35:54  [0.306s][info][library] Loaded library C:\jenkins\workspace\Grinder\jdkbinary\openjdk-test-image\hotspot\jtreg\native\LoadLibraryClass.dll, handle 0x71df0000
+15:35:54  [0.306s][info][library] Failed to find _JNI_OnLoad@8 in library with handle 0x71df0000
+15:35:54  [0.306s][info][library] Failed to find JNI_OnLoad in library with handle 0x71df0000
+15:35:54  ];
+15:35:54   stderr: []
+15:35:54   exitValue = 0
+15:35:54  
+15:35:54  java.lang.RuntimeException: 'Found Java_LoadLibraryTest_00024LoadLibraryClass_nTest__ in library' missing from stdout/stderr 
+15:35:54  
+15:35:54  	at jdk.test.lib.process.OutputAnalyzer.shouldContain(OutputAnalyzer.java:221)
+15:35:54  	at LoadLibraryTest.main(LoadLibraryTest.java:131)
+15:35:54  	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+15:35:54  	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+15:35:54  	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+15:35:54  	at java.base/java.lang.reflect.Method.invoke(Method.java:569)
+15:35:54  	at com.sun.javatest.regtest.agent.MainActionHelper$AgentVMRunnable.run(MainActionHelper.java:333)
+15:35:54  	at java.base/java.lang.Thread.run(Thread.java:840)
+...
+```
+
+**serviceability/jvmti/HeapMonitor/MyPackage/HeapMonitorStatArrayCorrectnessTest.java.HeapMonitorStatArrayCorrectnessTest**
+```
+...
+15:55:43  messages:
+15:55:43  command: main -agentlib:HeapMonitorTest MyPackage.HeapMonitorStatArrayCorrectnessTest
+15:55:43  reason: User specified action: run main/othervm/native -agentlib:HeapMonitorTest MyPackage.HeapMonitorStatArrayCorrectnessTest 
+15:55:43  started: Mon Jun 10 13:54:25 UTC 2024
+15:55:43  Mode: othervm [/othervm specified]
+15:55:43  finished: Mon Jun 10 13:55:31 UTC 2024
+15:55:43  elapsed time (seconds): 65.557
+15:55:43  configuration:
+15:55:43  STDOUT:
+15:55:43  Testing size 1000
+15:55:43  Testing size 10000
+15:55:43  Testing size 100000
+15:55:43  STDERR:
+15:55:43  Unexpected high difference percentage: 17.621756625502982 due to the count being 8477.0 instead of 7207
+15:55:43  Unexpected high difference percentage: 17.212432357430277 due to the count being 16895.0 instead of 14414
+15:55:43  Unexpected high difference percentage: 17.640257157393275 due to the count being 25435.0 instead of 21621
+15:55:43  Unexpected high difference percentage: 17.28874705147773 due to the count being 33812.0 instead of 28828
+15:55:43  Unexpected high difference percentage: 17.42979242979243 due to the count being 42317.0 instead of 36036
+15:55:43  Unexpected high difference percentage: 17.480285826607776 due to the count being 50802.0 instead of 43243
+15:55:43  Unexpected high difference percentage: 17.153617443012884 due to the count being 59104.0 instead of 50450
+15:55:43  Unexpected high difference percentage: 16.92248989715039 due to the count being 67414.0 instead of 57657
+15:55:43  Unexpected high difference percentage: 16.833682782437098 due to the count being 75783.0 instead of 64864
+15:55:43  java.lang.RuntimeException: Statistics should show about 64864.86486486487 samples;  but have 75783 instead for the size 100000
+15:55:43  	at MyPackage.HeapMonitorStatArrayCorrectnessTest.main(HeapMonitorStatArrayCorrectnessTest.java:102)
+15:55:43  	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+15:55:43  	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+15:55:43  	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+15:55:43  	at java.base/java.lang.reflect.Method.invoke(Method.java:569)
+15:55:43  	at com.sun.javatest.regtest.agent.MainWrapper$MainTask.run(MainWrapper.java:138)
+15:55:43  	at java.base/java.lang.Thread.run(Thread.java:840)
+...
+```
+
+**serviceability/sa/CDSJMapClstats.java**
+```
+...
+15:57:06  Command line: ['c:\jenkins\workspace\Grinder\jdkbinary\j2sdk-image\bin\java.exe' '-ea' '-esa' '-Xmx512m' '-XX:+UnlockDiagnosticVMOptions' '-XX:SharedArchiveFile=ArchiveForCDSJMapClstats.jsa' '-Xshare:auto' '-cp' 'C:\jenkins\workspace\Grinder\aqa-tests\TKG\output_17180275918774\hotspot_serviceability_0\work\classes\2\serviceability\sa\CDSJMapClstats.d;C:\jenkins\workspace\Grinder\aqa-tests\TKG\output_17180275918774\hotspot_serviceability_0\work\classes\2\test\lib' 'jdk.test.lib.apps.LingeredApp' '1e3763bd-1c37-4a57-b522-458f3b99c886.lck']
+15:57:06  Started LingeredApp with pid 12144
+15:57:06  c:\jenkins\workspace\Grinder\jdkbinary\j2sdk-image\bin\jhsdb.exe -J-ea -J-esa -J-Xmx512m jmap --clstats --pid 12144
+15:57:06  [2024-06-10T13:56:51.224514300Z] Gathering output for process 16236
+15:57:06  [2024-06-10T13:56:54.321557Z] Waiting for completion for process 16236
+15:57:06  [2024-06-10T13:56:54.322556Z] Waiting for completion finished for process 16236
+15:57:06  Output and diagnostic info for process 16236 was saved into 'pid-16236-output.log'
+15:57:06  Attaching to process ID 12144, please wait...
+15:57:06  Debugger attached successfully.
+15:57:06  Client compiler detected.
+15:57:06  JVM version is 17.0.12-beta+5-ea
+15:57:06  class_loader	classes	bytes	parent_loader	alive?	type
+15:57:06  
+15:57:06  <bootstrap>	547	1497491	  null  	live	<internal>
+15:57:06  
+15:57:06  total = 1	547	1497491	    N/A    	alive=1, dead=0	    N/A    
+15:57:06  finding class loader instances ..done.
+15:57:06  computing per loader stat ..done.
+15:57:06  please wait.. computing liveness.........................................done.
+15:57:06  
+15:57:06  [2024-06-10T13:56:54.325558200Z] Waiting for completion for process 16236
+15:57:06  [2024-06-10T13:56:54.325558200Z] Waiting for completion finished for process 16236
+15:57:06  [2024-06-10T13:56:54.326556200Z] Waiting for completion for process 16236
+15:57:06  [2024-06-10T13:56:54.326556200Z] Waiting for completion finished for process 16236
+15:57:06   LingeredApp stdout: [];
+15:57:06   LingeredApp stderr: []
+15:57:06   LingeredApp exitValue = 0
+15:57:06  STDERR:
+15:57:06   stdout: [Attaching to process ID 12144, please wait...
+15:57:06  Debugger attached successfully.
+15:57:06  Client compiler detected.
+15:57:06  JVM version is 17.0.12-beta+5-ea
+15:57:06  class_loader	classes	bytes	parent_loader	alive?	type
+15:57:06  
+15:57:06  <bootstrap>	547	1497491	  null  	live	<internal>
+15:57:06  
+15:57:06  total = 1	547	1497491	    N/A    	alive=1, dead=0	    N/A    
+15:57:06  ];
+15:57:06   stderr: [finding class loader instances ..done.
+15:57:06  computing per loader stat ..done.
+15:57:06  please wait.. computing liveness.........................................done.
+15:57:06  ]
+15:57:06   exitValue = 0
+15:57:06  
+15:57:06  java.lang.RuntimeException: Test ERROR java.lang.RuntimeException: 'BootClassLoader' missing from stdout/stderr 
+15:57:06  
+15:57:06  	at CDSJMapClstats.main(CDSJMapClstats.java:83)
+15:57:06  	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+15:57:06  	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+15:57:06  	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+15:57:06  	at java.base/java.lang.reflect.Method.invoke(Method.java:569)
+15:57:06  	at com.sun.javatest.regtest.agent.MainActionHelper$AgentVMRunnable.run(MainActionHelper.java:333)
+15:57:06  	at java.base/java.lang.Thread.run(Thread.java:840)
+15:57:06  Caused by: java.lang.RuntimeException: 'BootClassLoader' missing from stdout/stderr 
+15:57:06  
+15:57:06  	at jdk.test.lib.process.OutputAnalyzer.shouldContain(OutputAnalyzer.java:221)
+15:57:06  	at CDSJMapClstats.runClstats(CDSJMapClstats.java:62)
+15:57:06  	at CDSJMapClstats.main(CDSJMapClstats.java:81)
+15:57:06  	... 6 more
+...
+```
+
+**serviceability/sa/ClhsdbFindPC.java#id0**
+```
+...
+15:57:40  STDOUT:
+15:57:40  Starting the ClhsdbFindPC test
+15:57:40  Command line: ['c:\jenkins\workspace\Grinder\jdkbinary\j2sdk-image\bin\java.exe' '-ea' '-esa' '-Xmx512m' '-Xcomp' '-XX:-AlwaysPreTouch' '-cp' 'C:\jenkins\workspace\Grinder\aqa-tests\TKG\output_17180275918774\hotspot_serviceability_0\work\classes\0\serviceability\sa\ClhsdbFindPC_id0.d;C:\jenkins\workspace\Grinder\aqa-tests\TKG\output_17180275918774\hotspot_serviceability_0\work\classes\0\test\lib' 'jdk.test.lib.apps.LingeredApp' '71ad291d-6299-4f4a-bf59-27493743cb97.lck']
+15:57:40  Started LingeredApp (-Xcomp) with pid 5348
+15:57:40  Starting clhsdb against 5348
+15:57:40  [2024-06-10T13:57:32.271108600Z] Gathering output for process 6604
+15:57:40  [2024-06-10T13:57:34.374139800Z] Waiting for completion for process 6604
+15:57:40  [2024-06-10T13:57:34.374139800Z] Waiting for completion finished for process 6604
+15:57:40  Output: 
+15:57:40  Attaching to process 5348, please wait...
+15:57:40  hsdb> hsdb> + verbose true
+15:57:40  hsdb> + jstack -v
+15:57:40  Deadlock Detection:
+15:57:40  
+15:57:40  No deadlocks found.
+15:57:40  
+15:57:40  "main" #1 prio=5 tid=0x0375b660 nid=0x2758 waiting on condition [0x0174f000]
+15:57:40     java.lang.Thread.State: TIMED_WAITING (sleeping)
+15:57:40     JavaThread state: _thread_blocked
+15:57:40   - java.lang.Thread.sleep(long) @bci=0, pc=0x03a35a6e, Method*=0x26035ad0 (Compiled frame; information may be imprecise)
+15:57:40   - jdk.test.lib.apps.LingeredApp.main(java.lang.String[]) @bci=158, line=598, pc=0x039dacac, Method*=0x264025d0 (Compiled frame)
+15:57:40  	- locked <0x05abffa0> (a java.lang.Object)
+15:57:40  
+15:57:40  Locked ownable synchronizers:
+15:57:40      - None
+15:57:40  
+15:57:40  "Reference Handler" #2 daemon prio=10 tid=0x0382e950 nid=0x3660 waiting on condition [0x0360f000]
+15:57:40     java.lang.Thread.State: RUNNABLE
+15:57:40     JavaThread state: _thread_blocked
+15:57:40   - java.lang.ref.Reference.waitForReferencePendingList() @bci=0, pc=0x0384873c, Method*=0x26031c50 (Interpreted frame)
+15:57:40   - java.lang.ref.Reference.processPendingReferences() @bci=0, line=253, pc=0x03845e50, Method*=0x26031e38 (Interpreted frame)
+15:57:40   - java.lang.ref.Reference$ReferenceHandler.run() @bci=0, line=215, pc=0x03845e50, Method*=0x26146718 (Interpreted frame)
+15:57:40  
+15:57:40  Locked ownable synchronizers:
+15:57:40      - None
+15:57:40  
+15:57:40  "Finalizer" #3 daemon prio=8 tid=0x03831da8 nid=0x41dc in Object.wait() [0x0369f000]
+15:57:40     java.lang.Thread.State: WAITING (on object monitor)
+15:57:40     JavaThread state: _thread_blocked
+15:57:40   - java.lang.Object.wait(long) @bci=0, pc=0x0384873c, Method*=0x26001108 (Interpreted frame)
+15:57:40  	- waiting on <0x05a0a9a8> (a java.lang.ref.ReferenceQueue$Lock)
+15:57:40   - java.lang.ref.ReferenceQueue.remove(long) @bci=59, line=155, pc=0x03845e50, Method*=0x26147c68 (Interpreted frame)
+15:57:40  	- locked <0x05a0a9a8> (a java.lang.ref.ReferenceQueue$Lock)
+15:57:40   - java.lang.ref.ReferenceQueue.remove() @bci=2, line=176, pc=0x03845f59, Method*=0x26147ce8 (Interpreted frame)
+15:57:40   - java.lang.ref.Finalizer$FinalizerThread.run() @bci=37, line=172, pc=0x03845f59, Method*=0x261497b8 (Interpreted frame)
+15:57:40  
+15:57:40  Locked ownable synchronizers:
+15:57:40      - None
+15:57:40  
+15:57:40  "Signal Dispatcher" #4 daemon prio=9 tid=0x03322818 nid=0x140c waiting on condition [0x00000000]
+15:57:40     java.lang.Thread.State: RUNNABLE
+15:57:40     JavaThread state: _thread_blocked
+15:57:40  
+15:57:40  Locked ownable synchronizers:
+15:57:40      - None
+15:57:40  
+15:57:40  "Attach Listener" #5 daemon prio=5 tid=0x03323438 nid=0x3e68 runnable [0x00000000]
+15:57:40     java.lang.Thread.State: RUNNABLE
+15:57:40     JavaThread state: _thread_blocked
+15:57:40  
+15:57:40  Locked ownable synchronizers:
+15:57:40      - None
+15:57:40  
+15:57:40  "Common-Cleaner" #11 daemon prio=8 tid=0x270c6798 nid=0x452c in Object.wait() [0x25def000]
+15:57:40     java.lang.Thread.State: TIMED_WAITING (on object monitor)
+15:57:40     JavaThread state: _thread_blocked
+15:57:40   - java.lang.Object.wait(long) @bci=0, pc=0x039bd434, Method*=0x26001108 (Compiled frame; information may be imprecise)
+15:57:40  	- waiting on <no object reference available>
+15:57:40   - java.lang.ref.ReferenceQueue.remove(long) @bci=59, line=155, pc=0x039bc394, Method*=0x26147c68 (Compiled frame)
+15:57:40  	- locked <0x05ab2548> (a java.lang.ref.ReferenceQueue$Lock)
+15:57:40   - jdk.internal.ref.CleanerImpl.run() @bci=45, line=140, pc=0x039ba504, Method*=0x26281368 (Compiled frame)
+15:57:40   - java.lang.Thread.run() @bci=11, line=840, pc=0x039b9d50, Method*=0x260366f8 (Compiled frame)
+15:57:40   - jdk.internal.misc.InnocuousThread.run() @bci=20, line=162, pc=0x039b9d50, Method*=0x26283000 (Compiled frame)
+15:57:40  
+15:57:40  Locked ownable synchronizers:
+15:57:40      - None
+15:57:40  
+15:57:40  "SteadyStateThread" #12 prio=5 tid=0x270d9688 nid=0x2590 waiting for monitor entry [0x25e7f000]
+15:57:40     java.lang.Thread.State: BLOCKED (on object monitor)
+15:57:40     JavaThread state: _thread_blocked
+15:57:40  Error occurred during stack walking:
+15:57:40  
+15:57:40  Locked ownable synchronizers:
+15:57:40      - None
+15:57:40  
+15:57:40  hsdb> + quit
+15:57:40  sun.jvm.hotspot.utilities.AssertionFailure: overflow
+15:57:40  	at jdk.hotspot.agent/sun.jvm.hotspot.utilities.Assert.that(Assert.java:32)
+15:57:40  	at jdk.hotspot.agent/sun.jvm.hotspot.compiler.ImmutableOopMapSet.updateRegisterMap(ImmutableOopMapSet.java:286)
+15:57:40  	at jdk.hotspot.agent/sun.jvm.hotspot.runtime.x86.X86Frame.senderForCompiledFrame(X86Frame.java:401)
+15:57:40  	at jdk.hotspot.agent/sun.jvm.hotspot.runtime.x86.X86Frame.sender(X86Frame.java:292)
+15:57:40  	at jdk.hotspot.agent/sun.jvm.hotspot.runtime.Frame.sender(Frame.java:207)
+15:57:40  	at jdk.hotspot.agent/sun.jvm.hotspot.runtime.VFrame.newVFrame(VFrame.java:83)
+15:57:40  	at jdk.hotspot.agent/sun.jvm.hotspot.runtime.JavaThread.getLastJavaVFrameDbg(JavaThread.java:240)
+15:57:40  	at jdk.hotspot.agent/sun.jvm.hotspot.tools.StackTrace.run(StackTrace.java:81)
+15:57:40  	at jdk.hotspot.agent/sun.jvm.hotspot.CommandProcessor$27.doit(CommandProcessor.java:1157)
+15:57:40  	at jdk.hotspot.agent/sun.jvm.hotspot.CommandProcessor.executeCommand(CommandProcessor.java:2181)
+15:57:40  	at jdk.hotspot.agent/sun.jvm.hotspot.CommandProcessor.executeCommand(CommandProcessor.java:2151)
+15:57:40  	at jdk.hotspot.agent/sun.jvm.hotspot.CommandProcessor.run(CommandProcessor.java:2022)
+15:57:40  	at jdk.hotspot.agent/sun.jvm.hotspot.CLHSDB.run(CLHSDB.java:112)
+15:57:40  	at jdk.hotspot.agent/sun.jvm.hotspot.CLHSDB.main(CLHSDB.java:44)
+15:57:40  	at jdk.hotspot.agent/sun.jvm.hotspot.SALauncher.runCLHSDB(SALauncher.java:281)
+15:57:40  	at jdk.hotspot.agent/sun.jvm.hotspot.SALauncher.main(SALauncher.java:500)
+15:57:40  
+15:57:40   LingeredApp stdout: [];
+15:57:40   LingeredApp stderr: []
+15:57:40   LingeredApp exitValue = 0
+15:57:40  STDERR:
+15:57:40  java.lang.RuntimeException: Test ERROR java.lang.ArrayIndexOutOfBoundsException: Index 1 out of bounds for length 1
+15:57:40  	at ClhsdbFindPC.testFindPC(ClhsdbFindPC.java:306)
+15:57:40  	at ClhsdbFindPC.main(ClhsdbFindPC.java:328)
+15:57:40  	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+15:57:40  	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+15:57:40  	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+15:57:40  	at java.base/java.lang.reflect.Method.invoke(Method.java:569)
+15:57:40  	at com.sun.javatest.regtest.agent.MainWrapper$MainTask.run(MainWrapper.java:138)
+15:57:40  	at java.base/java.lang.Thread.run(Thread.java:840)
+15:57:40  Caused by: java.lang.ArrayIndexOutOfBoundsException: Index 1 out of bounds for length 1
+15:57:40  	at ClhsdbFindPC.testFindPC(ClhsdbFindPC.java:140)
+15:57:40  	... 7 more
+...
+```
+
+**serviceability/sa/ClhsdbFindPC.java#id1**
+```
+...
+15:57:40  STDOUT:
+15:57:40  Starting the ClhsdbFindPC test
+15:57:40  Command line: ['c:\jenkins\workspace\Grinder\jdkbinary\j2sdk-image\bin\java.exe' '-ea' '-esa' '-Xmx512m' '-Xcomp' '-XX:-AlwaysPreTouch' '-XX:+CreateCoredumpOnCrash' '-Djava.library.path=c:\jenkins\workspace\Grinder\jdkbinary\openjdk-test-image\hotspot\jtreg\native' '-cp' 'C:\jenkins\workspace\Grinder\aqa-tests\TKG\output_17180275918774\hotspot_serviceability_0\work\classes\0\serviceability\sa\ClhsdbFindPC_id1.d;C:\jenkins\workspace\Grinder\aqa-tests\TKG\output_17180275918774\hotspot_serviceability_0\work\classes\0\test\lib' 'jdk.test.lib.apps.LingeredApp' '691cbfe7-bace-48e9-886c-685422180fa3.lck' 'forceCrash']
+15:57:40  [2024-06-10T13:57:36.420168800Z] Gathering output for process 10768
+15:57:40  [2024-06-10T13:57:36.470169800Z] Waiting for completion for process 10768
+15:57:40  [2024-06-10T13:57:36.470169800Z] Waiting for completion finished for process 10768
+15:57:40  Output and diagnostic info for process 10768 was saved into 'pid-10768-output.log'
+15:57:40  [2024-06-10T13:57:36.473169500Z] Waiting for completion for process 10768
+15:57:40  [2024-06-10T13:57:36.473169500Z] Waiting for completion finished for process 10768
+15:57:40  Run test with ulimit -c: unlimited
+15:57:40  Started LingeredApp (-Xcomp) with pid 17344
+15:57:40  crashOutputString = [#
+15:57:40  # A fatal error has been detected by the Java Runtime Environment:
+15:57:40  #
+15:57:40  #  EXCEPTION_ACCESS_VIOLATION (0xc0000005) at pc=0x71dd1000, pid=8656, tid=7748
+15:57:40  #
+15:57:40  # JRE version: OpenJDK Runtime Environment Temurin-17.0.12+5-202405311506 (17.0.12+5) (build 17.0.12-beta+5-ea)
+15:57:40  # Java VM: OpenJDK Client VM Temurin-17.0.12+5-202405311506 (17.0.12-beta+5-ea, compiled mode, emulated-client, serial gc, windows-x86)
+15:57:40  # Problematic frame:
+15:57:40  # C  [LingeredApp.dll+0x1000]
+15:57:40  #
+15:57:40  # Core dump will be written. Default location: C:\jenkins\workspace\Grinder\aqa-tests\TKG\output_17180275918774\hotspot_serviceability_0\work\scratch\0\hs_err_pid8656.mdmp
+15:57:40  #
+15:57:40  # An error report file with more information is saved as:
+15:57:40  # C:\jenkins\workspace\Grinder\aqa-tests\TKG\output_17180275918774\hotspot_serviceability_0\work\scratch\0\hs_err_pid8656.log
+15:57:40  #
+15:57:40  # If you would like to submit a bug report, please visit:
+15:57:40  #   https://github.com/adoptium/adoptium-support/issues
+15:57:40  # The crash happened outside the Java Virtual Machine in native code.
+15:57:40  # See problematic frame for where to report the bug.
+15:57:40  #
+15:57:40  ]
+15:57:40  getCoreFileLocation found stringWithLocation = C:\jenkins\workspace\Grinder\aqa-tests\TKG\output_17180275918774\hotspot_serviceability_0\work\scratch\0\hs_err_pid8656.mdmp
+15:57:40  Found core file: C:\jenkins\workspace\Grinder\aqa-tests\TKG\output_17180275918774\hotspot_serviceability_0\work\scratch\0\hs_err_pid8656.mdmp
+15:57:40  Moving core file to cwd: hs_err_pid8656.mdmp
+15:57:40  Core file move took 1ms
+15:57:40  Starting clhsdb against corefile hs_err_pid8656.mdmp and exe c:\jenkins\workspace\Grinder\jdkbinary\j2sdk-image\bin\java.exe
+15:57:40  [2024-06-10T13:57:38.515198300Z] Gathering output for process 1892
+15:57:40  [2024-06-10T13:57:39.245209500Z] Waiting for completion for process 1892
+15:57:40  [2024-06-10T13:57:39.246210300Z] Waiting for completion finished for process 1892
+15:57:40  Output: 
+15:57:40  Opening core file, please wait...
+15:57:40  hsdb> hsdb> + verbose true
+15:57:40  hsdb> + findpc 0x71dd1000
+15:57:40  Address 0x71dd1000: LingeredApp!_Java_jdk_test_lib_apps_LingeredApp_crash@8
+15:57:40  hsdb> + quit
+15:57:40  
+15:57:40  Starting clhsdb against corefile hs_err_pid8656.mdmp and exe c:\jenkins\workspace\Grinder\jdkbinary\j2sdk-image\bin\java.exe
+15:57:40  [2024-06-10T13:57:39.250208600Z] Gathering output for process 3468
+15:57:40  [2024-06-10T13:57:40.347227Z] Waiting for completion for process 3468
+15:57:40  [2024-06-10T13:57:40.347227Z] Waiting for completion finished for process 3468
+15:57:40  Output: 
+15:57:40  Opening core file, please wait...
+15:57:40  hsdb> hsdb> + verbose true
+15:57:40  hsdb> + jstack -v
+15:57:40  Deadlock Detection:
+15:57:40  
+15:57:40  No deadlocks found.
+15:57:40  
+15:57:40  "main" #1 prio=5 tid=0x02bccb60 nid=0x1e44 runnable [0x00bdf000]
+15:57:40     java.lang.Thread.State: RUNNABLE
+15:57:40     JavaThread state: _thread_in_native
+15:57:40   - jdk.test.lib.apps.LingeredApp.crash() @bci=0, pc=0x02e709e0, Method*=0x25400fb8 (Compiled frame; information may be imprecise)
+15:57:40   - jdk.test.lib.apps.LingeredApp.main(java.lang.String[]) @bci=133, line=593, pc=0x02e4aba4, Method*=0x254025d0 (Compiled frame)
+15:57:40  	- locked <0x04ebff00> (a java.lang.Object)
+15:57:40  
+15:57:40  Locked ownable synchronizers:
+15:57:40      - None
+15:57:40  
+15:57:40  "Reference Handler" #2 daemon prio=10 tid=0x0278f528 nid=0x3e3c waiting on condition [0x02a9f000]
+15:57:40     java.lang.Thread.State: RUNNABLE
+15:57:40     JavaThread state: _thread_blocked
+15:57:40   - java.lang.ref.Reference.waitForReferencePendingList() @bci=0, pc=0x02cb873c, Method*=0x25031c50 (Interpreted frame)
+15:57:40   - java.lang.ref.Reference.processPendingReferences() @bci=0, line=253, pc=0x02cb5e50, Method*=0x25031e38 (Interpreted frame)
+15:57:40   - java.lang.ref.Reference$ReferenceHandler.run() @bci=0, line=215, pc=0x02cb5e50, Method*=0x25146718 (Interpreted frame)
+15:57:40  
+15:57:40  Locked ownable synchronizers:
+15:57:40      - None
+15:57:40  
+15:57:40  "Finalizer" #3 daemon prio=8 tid=0x02792cb8 nid=0x34b0 in Object.wait() [0x02b2f000]
+15:57:40     java.lang.Thread.State: WAITING (on object monitor)
+15:57:40     JavaThread state: _thread_blocked
+15:57:40   - java.lang.Object.wait(long) @bci=0, pc=0x02cb873c, Method*=0x25001108 (Interpreted frame)
+15:57:40  	- waiting on <0x04e0a9a8> (a java.lang.ref.ReferenceQueue$Lock)
+15:57:40   - java.lang.ref.ReferenceQueue.remove(long) @bci=59, line=155, pc=0x02cb5e50, Method*=0x25147c68 (Interpreted frame)
+15:57:40  	- locked <0x04e0a9a8> (a java.lang.ref.ReferenceQueue$Lock)
+15:57:40   - java.lang.ref.ReferenceQueue.remove() @bci=2, line=176, pc=0x02cb5f59, Method*=0x25147ce8 (Interpreted frame)
+15:57:40   - java.lang.ref.Finalizer$FinalizerThread.run() @bci=37, line=172, pc=0x02cb5f59, Method*=0x25149728 (Interpreted frame)
+15:57:40  
+15:57:40  Locked ownable synchronizers:
+15:57:40      - None
+15:57:40  
+15:57:40  "Signal Dispatcher" #4 daemon prio=9 tid=0x027c12d8 nid=0x3694 waiting on condition [0x00000000]
+15:57:40     java.lang.Thread.State: RUNNABLE
+15:57:40     JavaThread state: _thread_blocked
+15:57:40  
+15:57:40  Locked ownable synchronizers:
+15:57:40      - None
+15:57:40  
+15:57:40  "Attach Listener" #5 daemon prio=5 tid=0x027c1ef8 nid=0x2070 runnable [0x00000000]
+15:57:40     java.lang.Thread.State: RUNNABLE
+15:57:40     JavaThread state: _thread_blocked
+15:57:40  
+15:57:40  Locked ownable synchronizers:
+15:57:40      - None
+15:57:40  
+15:57:40  "Common-Cleaner" #11 daemon prio=8 tid=0x261ab218 nid=0x894 in Object.wait() [0x2668f000]
+15:57:40     java.lang.Thread.State: TIMED_WAITING (on object monitor)
+15:57:40     JavaThread state: _thread_blocked
+15:57:40   - java.lang.Object.wait(long) @bci=0, pc=0x02e2deb4, Method*=0x25001108 (Compiled frame; information may be imprecise)
+15:57:40  	- waiting on <no object reference available>
+15:57:40   - java.lang.ref.ReferenceQueue.remove(long) @bci=59, line=155, pc=0x02e2ce94, Method*=0x25147c68 (Compiled frame)
+15:57:40  	- locked <0x04eb2428> (a java.lang.ref.ReferenceQueue$Lock)
+15:57:40   - jdk.internal.ref.CleanerImpl.run() @bci=45, line=140, pc=0x02e2c044, Method*=0x25281368 (Compiled frame)
+15:57:40   - java.lang.Thread.run() @bci=11, line=840, pc=0x02e2b690, Method*=0x250366f8 (Compiled frame)
+15:57:40   - jdk.internal.misc.InnocuousThread.run() @bci=20, line=162, pc=0x02e2b690, Method*=0x25283000 (Compiled frame)
+15:57:40  
+15:57:40  Locked ownable synchronizers:
+15:57:40      - None
+15:57:40  
+15:57:40  "SteadyStateThread" #12 prio=5 tid=0x261badc0 nid=0x2afc waiting for monitor entry [0x2671f000]
+15:57:40     java.lang.Thread.State: BLOCKED (on object monitor)
+15:57:40     JavaThread state: _thread_blocked
+15:57:40  Error occurred during stack walking:
+15:57:40  
+15:57:40  Locked ownable synchronizers:
+15:57:40      - None
+15:57:40  
+15:57:40  hsdb> + quit
+15:57:40  sun.jvm.hotspot.utilities.AssertionFailure: overflow
+15:57:40  	at jdk.hotspot.agent/sun.jvm.hotspot.utilities.Assert.that(Assert.java:32)
+15:57:40  	at jdk.hotspot.agent/sun.jvm.hotspot.compiler.ImmutableOopMapSet.updateRegisterMap(ImmutableOopMapSet.java:286)
+15:57:40  	at jdk.hotspot.agent/sun.jvm.hotspot.runtime.x86.X86Frame.senderForCompiledFrame(X86Frame.java:401)
+15:57:40  	at jdk.hotspot.agent/sun.jvm.hotspot.runtime.x86.X86Frame.sender(X86Frame.java:292)
+15:57:40  	at jdk.hotspot.agent/sun.jvm.hotspot.runtime.Frame.sender(Frame.java:207)
+15:57:40  	at jdk.hotspot.agent/sun.jvm.hotspot.runtime.VFrame.newVFrame(VFrame.java:83)
+15:57:40  	at jdk.hotspot.agent/sun.jvm.hotspot.runtime.JavaThread.getLastJavaVFrameDbg(JavaThread.java:240)
+15:57:40  	at jdk.hotspot.agent/sun.jvm.hotspot.tools.StackTrace.run(StackTrace.java:81)
+15:57:40  	at jdk.hotspot.agent/sun.jvm.hotspot.CommandProcessor$27.doit(CommandProcessor.java:1157)
+15:57:40  	at jdk.hotspot.agent/sun.jvm.hotspot.CommandProcessor.executeCommand(CommandProcessor.java:2181)
+15:57:40  	at jdk.hotspot.agent/sun.jvm.hotspot.CommandProcessor.executeCommand(CommandProcessor.java:2151)
+15:57:40  	at jdk.hotspot.agent/sun.jvm.hotspot.CommandProcessor.run(CommandProcessor.java:2022)
+15:57:40  	at jdk.hotspot.agent/sun.jvm.hotspot.CLHSDB.run(CLHSDB.java:112)
+15:57:40  	at jdk.hotspot.agent/sun.jvm.hotspot.CLHSDB.main(CLHSDB.java:44)
+15:57:40  	at jdk.hotspot.agent/sun.jvm.hotspot.SALauncher.runCLHSDB(SALauncher.java:281)
+15:57:40  	at jdk.hotspot.agent/sun.jvm.hotspot.SALauncher.main(SALauncher.java:500)
+15:57:40  
+15:57:40  STDERR:
+15:57:40  java.lang.RuntimeException: Test ERROR java.lang.ArrayIndexOutOfBoundsException: Index 1 out of bounds for length 1
+15:57:40  	at ClhsdbFindPC.testFindPC(ClhsdbFindPC.java:306)
+15:57:40  	at ClhsdbFindPC.main(ClhsdbFindPC.java:328)
+15:57:40  	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+15:57:40  	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+15:57:40  	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+15:57:40  	at java.base/java.lang.reflect.Method.invoke(Method.java:569)
+15:57:40  	at com.sun.javatest.regtest.agent.MainWrapper$MainTask.run(MainWrapper.java:138)
+15:57:40  	at java.base/java.lang.Thread.run(Thread.java:840)
+15:57:40  Caused by: java.lang.ArrayIndexOutOfBoundsException: Index 1 out of bounds for length 1
+15:57:40  	at ClhsdbFindPC.testFindPC(ClhsdbFindPC.java:140)
+15:57:40  	... 7 more
+...
+```
+
+
+**serviceability/sa/ClhsdbJhisto.java**
+```
+...
+15:57:53  Command line: ['c:\jenkins\workspace\Grinder\jdkbinary\j2sdk-image\bin\java.exe' '-ea' '-esa' '-Xmx512m' '-cp' 'C:\jenkins\workspace\Grinder\aqa-tests\TKG\output_17180275918774\hotspot_serviceability_0\work\classes\0\serviceability\sa\ClhsdbJhisto.d;C:\jenkins\workspace\Grinder\aqa-tests\TKG\output_17180275918774\hotspot_serviceability_0\work\classes\0\test\lib' 'LingeredAppWithInterface' '19735380-b059-4e90-a52d-1c0ae2afa1ff.lck']
+15:57:53  Started LingeredApp with pid 8068
+15:57:53  Starting clhsdb against 8068
+15:57:53  [2024-06-10T13:57:50.910378500Z] Gathering output for process 1040
+15:57:53  [2024-06-10T13:57:52.195398300Z] Waiting for completion for process 1040
+15:57:53  [2024-06-10T13:57:52.195398300Z] Waiting for completion finished for process 1040
+15:57:53  Output: 
+15:57:53  Attaching to process 8068, please wait...
+15:57:53  hsdb> hsdb> + verbose true
+15:57:53  hsdb> + jhisto
+15:57:53  Object Histogram:
+15:57:53  
+15:57:53  num 	  #instances	#bytes	Class description
+15:57:53  --------------------------------------------------------------------------
+15:57:53  1:		411	43928	java.lang.Class
+15:57:53  2:		520	26960	byte[]
+15:57:53  3:		187	16176	java.lang.Object[]
+15:57:53  4:		504	12096	java.lang.String
+15:57:53  5:		438	10480	int[]
+15:57:53  6:		256	4096	java.lang.Integer
+15:57:53  7:		90	2880	java.math.BigInteger
+15:57:53  8:		10	1864	char[]
+15:57:53  9:		76	1824	java.util.HashMap$Node
+15:57:53  10:		57	1368	java.util.concurrent.ConcurrentHashMap$Node
+15:57:53  11:		6	1120	java.util.HashMap$Node[]
+15:57:53  12:		1	1040	java.lang.Integer[]
+15:57:53  13:		15	912	java.lang.String[]
+15:57:53  14:		38	880	java.math.BigInteger[]
+15:57:53  15:		2	608	java.util.concurrent.ConcurrentHashMap$Node[]
+15:57:53  16:		7	504	java.util.concurrent.TimeUnit
+15:57:53  17:		17	408	java.time.Duration
+15:57:53  18:		12	384	java.lang.OutOfMemoryError
+15:57:53  19:		8	384	java.util.concurrent.ConcurrentHashMap$ValueIterator
+15:57:53  20:		16	384	java.time.temporal.ChronoUnit
+15:57:53  21:		3	376	long[]
+15:57:53  22:		1	368	java.lang.ref.Finalizer$FinalizerThread
+15:57:53  23:		1	368	jdk.test.lib.apps.LingeredApp$1
+15:57:53  24:		9	360	java.io.ObjectStreamField
+15:57:53  25:		1	360	java.lang.Thread
+15:57:53  26:		1	360	java.lang.ref.Reference$ReferenceHandler
+15:57:53  27:		4	320	short[]
+15:57:53  28:		1	312	double[]
+15:57:53  29:		9	216	java.lang.StringBuilder
+15:57:53  30:		26	208	java.lang.Object
+15:57:53  31:		5	200	java.io.FileDescriptor
+15:57:53  32:		4	160	java.security.AccessControlContext
+15:57:53  33:		2	160	java.time.temporal.ChronoUnit[]
+15:57:53  34:		4	160	java.util.HashMap
+15:57:53  35:		1	160	java.math.BigInteger[][]
+15:57:53  36:		10	160	java.nio.file.StandardOpenOption
+15:57:53  37:		9	144	java.util.KeyValueHolder
+15:57:53  38:		2	128	sun.nio.ch.FileChannelImpl
+15:57:53  39:		2	128	java.util.concurrent.ConcurrentHashMap
+15:57:53  40:		3	120	sun.nio.fs.WindowsPath
+15:57:53  41:		3	120	jdk.internal.ref.CleanerImpl$PhantomCleanableRef
+15:57:53  42:		7	112	java.util.ImmutableCollections$Set12
+15:57:53  43:		7	112	java.nio.charset.CoderResult
+15:57:53  44:		2	112	java.lang.invoke.MethodHandle[]
+15:57:53  45:		6	96	java.lang.Thread$State
+15:57:53  46:		4	96	java.io.ObjectStreamField[]
+15:57:53  47:		4	96	java.io.File
+15:57:53  48:		2	96	java.lang.Module
+15:57:53  49:		4	96	sun.nio.fs.WindowsPathParser$Result
+15:57:53  50:		2	96	java.io.FileCleanable
+15:57:53  51:		2	96	java.lang.ThreadGroup
+15:57:53  52:		5	80	sun.nio.fs.WindowsPathType
+15:57:53  53:		1	80	java.net.URI
+15:57:53  54:		2	80	java.lang.OutOfMemoryError[]
+15:57:53  55:		2	80	java.util.concurrent.TimeUnit[]
+15:57:53  56:		1	80	java.lang.ThreadLocal$ThreadLocalMap$Entry[]
+15:57:53  57:		3	72	java.lang.ref.WeakReference
+15:57:53  58:		3	72	java.lang.invoke.MethodHandles$Lookup
+15:57:53  59:		2	64	java.lang.ThreadLocal$ThreadLocalMap$Entry
+15:57:53  60:		2	64	sun.nio.fs.WindowsChannelFactory$Flags
+15:57:53  61:		2	64	java.nio.file.attribute.FileTime
+15:57:53  62:		4	64	jdk.internal.loader.NativeLibraries$1
+15:57:53  63:		4	64	java.nio.file.LinkOption[]
+15:57:53  64:		2	64	jdk.internal.loader.NativeLibraries$NativeLibraryImpl
+15:57:53  65:		2	64	java.io.FileOutputStream
+15:57:53  66:		1	56	java.nio.file.StandardOpenOption[]
+15:57:53  67:		2	48	java.util.ImmutableCollections$MapN
+15:57:53  68:		2	48	java.util.Date
+15:57:53  69:		2	48	java.util.ArrayDeque$DeqIterator
+15:57:53  70:		1	48	java.util.Properties
+15:57:53  71:		2	48	java.lang.ref.ReferenceQueue$Null
+15:57:53  72:		2	48	sun.nio.ch.NativeThreadSet
+15:57:53  73:		1	48	java.nio.HeapCharBuffer
+15:57:53  74:		2	48	java.lang.ref.ReferenceQueue
+15:57:53  75:		1	40	java.lang.NullPointerException
+15:57:53  76:		1	40	sun.nio.cs.StandardCharsets$Aliases
+15:57:53  77:		1	40	java.lang.Thread$State[]
+15:57:53  78:		2	32	sun.nio.fs.WindowsFileAttributeViews$Basic
+15:57:53  79:		1	32	sun.nio.fs.NativeBuffer
+15:57:53  80:		1	32	java.lang.VirtualMachineError
+15:57:53  81:		1	32	java.io.FileInputStream
+15:57:53  82:		2	32	java.util.ImmutableCollections$SetN
+15:57:53  83:		2	32	sun.nio.ch.FileChannelImpl$Closer
+15:57:53  84:		2	32	java.lang.Class[]
+15:57:53  85:		1	32	java.io.PrintStream
+15:57:53  86:		1	32	java.util.IdentityHashMap
+15:57:53  87:		1	32	java.lang.ArithmeticException
+15:57:53  88:		2	32	java.util.HashSet
+15:57:53  89:		1	32	java.util.HashMap$EntryIterator
+15:57:53  90:		1	32	java.nio.charset.CoderResult[]
+15:57:53  91:		2	32	java.util.ImmutableCollections$ListN
+15:57:53  92:		1	32	java.lang.ThreadGroup[]
+15:57:53  93:		4	32	java.lang.ref.ReferenceQueue$Lock
+15:57:53  94:		2	32	java.nio.file.AccessMode[]
+15:57:53  95:		1	32	java.io.BufferedOutputStream
+15:57:53  96:		1	32	sun.nio.fs.WindowsPathType[]
+15:57:53  97:		1	32	java.io.BufferedInputStream
+15:57:53  98:		1	32	java.lang.Thread[]
+15:57:53  99:		1	24	sun.nio.fs.NativeBuffer[]
+15:57:53  100:		1	24	java.net.URI$Parser
+15:57:53  101:		1	24	sun.nio.fs.WindowsFileSystem
+15:57:53  102:		1	24	java.io.OutputStreamWriter
+15:57:53  103:		1	24	sun.nio.cs.StandardCharsets
+15:57:53  104:		1	24	java.lang.reflect.ReflectPermission
+15:57:53  105:		1	24	java.util.ImmutableCollections$MapN$MapNIterator
+15:57:53  106:		1	24	java.lang.Module$ArchivedData
+15:57:53  107:		1	24	java.lang.ThreadLocal$ThreadLocalMap
+15:57:53  108:		1	16	jdk.internal.misc.TerminatingThreadLocal$1
+15:57:53  109:		1	16	java.util.IdentityHashMap$KeySet
+15:57:53  110:		1	16	java.util.Collections$UnmodifiableSet
+15:57:53  111:		1	16	java.util.HashMap$EntrySet
+15:57:53  112:		1	16	java.util.Arrays$ArrayItr
+15:57:53  113:		1	16	jdk.internal.reflect.ReflectionFactory
+15:57:53  114:		1	16	java.util.concurrent.ConcurrentHashMap$ValuesView
+15:57:53  115:		1	16	java.util.concurrent.atomic.AtomicInteger
+15:57:53  116:		1	16	sun.nio.fs.NativeBuffer$Deallocator
+15:57:53  117:		1	16	sun.util.calendar.Gregorian
+15:57:53  118:		1	16	java.util.ImmutableCollections$MapN$1
+15:57:53  119:		1	16	java.util.Arrays$ArrayList
+15:57:53  120:		2	16	sun.nio.ch.FileDispatcherImpl
+15:57:53  121:		1	16	java.util.Collections$SetFromMap
+15:57:53  122:		1	16	sun.nio.fs.NativeBuffers$1
+15:57:53  123:		1	16	java.nio.file.attribute.FileAttribute[]
+15:57:53  124:		1	16	sun.nio.fs.WindowsFileSystemProvider
+15:57:53  125:		1	16	java.lang.StackTraceElement[]
+15:57:53  126:		1	16	jdk.internal.util.SystemProps$Raw
+15:57:53  127:		1	16	java.lang.ThreadLocal
+15:57:53  128:		1	16	java.security.ProtectionDomain[]
+15:57:53  129:		1	8	jdk.internal.misc.Unsafe
+15:57:53  130:		1	8	java.io.FileDescriptor$1
+15:57:53  131:		1	8	java.util.Collections$EmptyIterator
+15:57:53  132:		1	8	jdk.internal.reflect.ReflectionFactory$GetReflectionFactoryAction
+15:57:53  133:		1	8	java.lang.String$CaseInsensitiveComparator
+15:57:53  134:		1	8	java.lang.Runtime
+15:57:53  135:		1	8	sun.nio.fs.WindowsChannelFactory$1
+15:57:53  136:		1	8	java.lang.ref.Reference$1
+15:57:53  137:		1	8	java.lang.System$2
+15:57:53  138:		1	8	java.lang.reflect.ReflectAccess
+15:57:53  139:		1	8	java.nio.file.FileSystems$DefaultFileSystemHolder$1
+15:57:53  140:		1	8	java.lang.invoke.MemberName$Factory
+15:57:53  141:		1	8	java.lang.CharacterDataLatin1
+15:57:53  Total : 	2940	137072
+15:57:53  hsdb> + quit
+15:57:53  Iterating over heap. This may take a while...
+15:57:53  Heap traversal took 0.693 seconds.
+15:57:53  
+15:57:53   LingeredApp stdout: [Hello world!
+15:57:53  1199988
+15:57:53  ];
+15:57:53   LingeredApp stderr: []
+15:57:53   LingeredApp exitValue = 0
+15:57:53  STDERR:
+15:57:53   stdout: [ + jhisto
+15:57:53  Object Histogram:
+15:57:53  
+15:57:53  num 	  #instances	#bytes	Class description
+15:57:53  --------------------------------------------------------------------------
+15:57:53  1:		411	43928	java.lang.Class
+15:57:53  2:		520	26960	byte[]
+15:57:53  3:		187	16176	java.lang.Object[]
+15:57:53  4:		504	12096	java.lang.String
+15:57:53  5:		438	10480	int[]
+15:57:53  6:		256	4096	java.lang.Integer
+15:57:53  7:		90	2880	java.math.BigInteger
+15:57:53  8:		10	1864	char[]
+15:57:53  9:		76	1824	java.util.HashMap$Node
+15:57:53  10:		57	1368	java.util.concurrent.ConcurrentHashMap$Node
+15:57:53  11:		6	1120	java.util.HashMap$Node[]
+15:57:53  12:		1	1040	java.lang.Integer[]
+15:57:53  13:		15	912	java.lang.String[]
+15:57:53  14:		38	880	java.math.BigInteger[]
+15:57:53  15:		2	608	java.util.concurrent.ConcurrentHashMap$Node[]
+15:57:53  16:		7	504	java.util.concurrent.TimeUnit
+15:57:53  17:		17	408	java.time.Duration
+15:57:53  18:		12	384	java.lang.OutOfMemoryError
+15:57:53  19:		8	384	java.util.concurrent.ConcurrentHashMap$ValueIterator
+15:57:53  20:		16	384	java.time.temporal.ChronoUnit
+15:57:53  21:		3	376	long[]
+15:57:53  22:		1	368	java.lang.ref.Finalizer$FinalizerThread
+15:57:53  23:		1	368	jdk.test.lib.apps.LingeredApp$1
+15:57:53  24:		9	360	java.io.ObjectStreamField
+15:57:53  25:		1	360	java.lang.Thread
+15:57:53  26:		1	360	java.lang.ref.Reference$ReferenceHandler
+15:57:53  27:		4	320	short[]
+15:57:53  28:		1	312	double[]
+15:57:53  29:		9	216	java.lang.StringBuilder
+15:57:53  30:		26	208	java.lang.Object
+15:57:53  31:		5	200	java.io.FileDescriptor
+15:57:53  32:		4	160	java.security.AccessControlContext
+15:57:53  33:		2	160	java.time.temporal.ChronoUnit[]
+15:57:53  34:		4	160	java.util.HashMap
+15:57:53  35:		1	160	java.math.BigInteger[][]
+15:57:53  36:		10	160	java.nio.file.StandardOpenOption
+15:57:53  37:		9	144	java.util.KeyValueHolder
+15:57:53  38:		2	128	sun.nio.ch.FileChannelImpl
+15:57:53  39:		2	128	java.util.concurrent.ConcurrentHashMap
+15:57:53  40:		3	120	sun.nio.fs.WindowsPath
+15:57:53  41:		3	120	jdk.internal.ref.CleanerImpl$PhantomCleanableRef
+15:57:53  42:		7	112	java.util.ImmutableCollections$Set12
+15:57:53  43:		7	112	java.nio.charset.CoderResult
+15:57:53  44:		2	112	java.lang.invoke.MethodHandle[]
+15:57:53  45:		6	96	java.lang.Thread$State
+15:57:53  46:		4	96	java.io.ObjectStreamField[]
+15:57:53  47:		4	96	java.io.File
+15:57:53  48:		2	96	java.lang.Module
+15:57:53  49:		4	96	sun.nio.fs.WindowsPathParser$Result
+15:57:53  50:		2	96	java.io.FileCleanable
+15:57:53  51:		2	96	java.lang.ThreadGroup
+15:57:53  52:		5	80	sun.nio.fs.WindowsPathType
+15:57:53  53:		1	80	java.net.URI
+15:57:53  54:		2	80	java.lang.OutOfMemoryError[]
+15:57:53  55:		2	80	java.util.concurrent.TimeUnit[]
+15:57:53  56:		1	80	java.lang.ThreadLocal$ThreadLocalMap$Entry[]
+15:57:53  57:		3	72	java.lang.ref.WeakReference
+15:57:53  58:		3	72	java.lang.invoke.MethodHandles$Lookup
+15:57:53  59:		2	64	java.lang.ThreadLocal$ThreadLocalMap$Entry
+15:57:53  60:		2	64	sun.nio.fs.WindowsChannelFactory$Flags
+15:57:53  61:		2	64	java.nio.file.attribute.FileTime
+15:57:53  62:		4	64	jdk.internal.loader.NativeLibraries$1
+15:57:53  63:		4	64	java.nio.file.LinkOption[]
+15:57:53  64:		2	64	jdk.internal.loader.NativeLibraries$NativeLibraryImpl
+15:57:53  65:		2	64	java.io.FileOutputStream
+15:57:53  66:		1	56	java.nio.file.StandardOpenOption[]
+15:57:53  67:		2	48	java.util.ImmutableCollections$MapN
+15:57:53  68:		2	48	java.util.Date
+15:57:53  69:		2	48	java.util.ArrayDeque$DeqIterator
+15:57:53  70:		1	48	java.util.Properties
+15:57:53  71:		2	48	java.lang.ref.ReferenceQueue$Null
+15:57:53  72:		2	48	sun.nio.ch.NativeThreadSet
+15:57:53  73:		1	48	java.nio.HeapCharBuffer
+15:57:53  74:		2	48	java.lang.ref.ReferenceQueue
+15:57:53  75:		1	40	java.lang.NullPointerException
+15:57:53  76:		1	40	sun.nio.cs.StandardCharsets$Aliases
+15:57:53  77:		1	40	java.lang.Thread$State[]
+15:57:53  78:		2	32	sun.nio.fs.WindowsFileAttributeViews$Basic
+15:57:53  79:		1	32	sun.nio.fs.NativeBuffer
+15:57:53  80:		1	32	java.lang.VirtualMachineError
+15:57:53  81:		1	32	java.io.FileInputStream
+15:57:53  82:		2	32	java.util.ImmutableCollections$SetN
+15:57:53  83:		2	32	sun.nio.ch.FileChannelImpl$Closer
+15:57:53  84:		2	32	java.lang.Class[]
+15:57:53  85:		1	32	java.io.PrintStream
+15:57:53  86:		1	32	java.util.IdentityHashMap
+15:57:53  87:		1	32	java.lang.ArithmeticException
+15:57:53  88:		2	32	java.util.HashSet
+15:57:53  89:		1	32	java.util.HashMap$EntryIterator
+15:57:53  90:		1	32	java.nio.charset.CoderResult[]
+15:57:53  91:		2	32	java.util.ImmutableCollections$ListN
+15:57:53  92:		1	32	java.lang.ThreadGroup[]
+15:57:53  93:		4	32	java.lang.ref.ReferenceQueue$Lock
+15:57:53  94:		2	32	java.nio.file.AccessMode[]
+15:57:53  95:		1	32	java.io.BufferedOutputStream
+15:57:53  96:		1	32	sun.nio.fs.WindowsPathType[]
+15:57:53  97:		1	32	java.io.BufferedInputStream
+15:57:53  98:		1	32	java.lang.Thread[]
+15:57:53  99:		1	24	sun.nio.fs.NativeBuffer[]
+15:57:53  100:		1	24	java.net.URI$Parser
+15:57:53  101:		1	24	sun.nio.fs.WindowsFileSystem
+15:57:53  102:		1	24	java.io.OutputStreamWriter
+15:57:53  103:		1	24	sun.nio.cs.StandardCharsets
+15:57:53  104:		1	24	java.lang.reflect.ReflectPermission
+15:57:53  105:		1	24	java.util.ImmutableCollections$MapN$MapNIterator
+15:57:53  106:		1	24	java.lang.Module$ArchivedData
+15:57:53  107:		1	24	java.lang.ThreadLocal$ThreadLocalMap
+15:57:53  108:		1	16	jdk.internal.misc.TerminatingThreadLocal$1
+15:57:53  109:		1	16	java.util.IdentityHashMap$KeySet
+15:57:53  110:		1	16	java.util.Collections$UnmodifiableSet
+15:57:53  111:		1	16	java.util.HashMap$EntrySet
+15:57:53  112:		1	16	java.util.Arrays$ArrayItr
+15:57:53  113:		1	16	jdk.internal.reflect.ReflectionFactory
+15:57:53  114:		1	16	java.util.concurrent.ConcurrentHashMap$ValuesView
+15:57:53  115:		1	16	java.util.concurrent.atomic.AtomicInteger
+15:57:53  116:		1	16	sun.nio.fs.NativeBuffer$Deallocator
+15:57:53  117:		1	16	sun.util.calendar.Gregorian
+15:57:53  118:		1	16	java.util.ImmutableCollections$MapN$1
+15:57:53  119:		1	16	java.util.Arrays$ArrayList
+15:57:53  120:		2	16	sun.nio.ch.FileDispatcherImpl
+15:57:53  121:		1	16	java.util.Collections$SetFromMap
+15:57:53  122:		1	16	sun.nio.fs.NativeBuffers$1
+15:57:53  123:		1	16	java.nio.file.attribute.FileAttribute[]
+15:57:53  124:		1	16	sun.nio.fs.WindowsFileSystemProvider
+15:57:53  125:		1	16	java.lang.StackTraceElement[]
+15:57:53  126:		1	16	jdk.internal.util.SystemProps$Raw
+15:57:53  127:		1	16	java.lang.ThreadLocal
+15:57:53  128:		1	16	java.security.ProtectionDomain[]
+15:57:53  129:		1	8	jdk.internal.misc.Unsafe
+15:57:53  130:		1	8	java.io.FileDescriptor$1
+15:57:53  131:		1	8	java.util.Collections$EmptyIterator
+15:57:53  132:		1	8	jdk.internal.reflect.ReflectionFactory$GetReflectionFactoryAction
+15:57:53  133:		1	8	java.lang.String$CaseInsensitiveComparator
+15:57:53  134:		1	8	java.lang.Runtime
+15:57:53  135:		1	8	sun.nio.fs.WindowsChannelFactory$1
+15:57:53  136:		1	8	java.lang.ref.Reference$1
+15:57:53  137:		1	8	java.lang.System$2
+15:57:53  138:		1	8	java.lang.reflect.ReflectAccess
+15:57:53  139:		1	8	java.nio.file.FileSystems$DefaultFileSystemHolder$1
+15:57:53  140:		1	8	java.lang.invoke.MemberName$Factory
+15:57:53  141:		1	8	java.lang.CharacterDataLatin1
+15:57:53  Total : 	2940	137072
+15:57:53  ];
+15:57:53   stderr: [ + jhisto
+15:57:53  Object Histogram:
+15:57:53  
+15:57:53  num 	  #instances	#bytes	Class description
+15:57:53  --------------------------------------------------------------------------
+15:57:53  1:		411	43928	java.lang.Class
+15:57:53  2:		520	26960	byte[]
+15:57:53  3:		187	16176	java.lang.Object[]
+15:57:53  4:		504	12096	java.lang.String
+15:57:53  5:		438	10480	int[]
+15:57:53  6:		256	4096	java.lang.Integer
+15:57:53  7:		90	2880	java.math.BigInteger
+15:57:53  8:		10	1864	char[]
+15:57:53  9:		76	1824	java.util.HashMap$Node
+15:57:53  10:		57	1368	java.util.concurrent.ConcurrentHashMap$Node
+15:57:53  11:		6	1120	java.util.HashMap$Node[]
+15:57:53  12:		1	1040	java.lang.Integer[]
+15:57:53  13:		15	912	java.lang.String[]
+15:57:53  14:		38	880	java.math.BigInteger[]
+15:57:53  15:		2	608	java.util.concurrent.ConcurrentHashMap$Node[]
+15:57:53  16:		7	504	java.util.concurrent.TimeUnit
+15:57:53  17:		17	408	java.time.Duration
+15:57:53  18:		12	384	java.lang.OutOfMemoryError
+15:57:53  19:		8	384	java.util.concurrent.ConcurrentHashMap$ValueIterator
+15:57:53  20:		16	384	java.time.temporal.ChronoUnit
+15:57:53  21:		3	376	long[]
+15:57:53  22:		1	368	java.lang.ref.Finalizer$FinalizerThread
+15:57:53  23:		1	368	jdk.test.lib.apps.LingeredApp$1
+15:57:53  24:		9	360	java.io.ObjectStreamField
+15:57:53  25:		1	360	java.lang.Thread
+15:57:53  26:		1	360	java.lang.ref.Reference$ReferenceHandler
+15:57:53  27:		4	320	short[]
+15:57:53  28:		1	312	double[]
+15:57:53  29:		9	216	java.lang.StringBuilder
+15:57:53  30:		26	208	java.lang.Object
+15:57:53  31:		5	200	java.io.FileDescriptor
+15:57:53  32:		4	160	java.security.AccessControlContext
+15:57:53  33:		2	160	java.time.temporal.ChronoUnit[]
+15:57:53  34:		4	160	java.util.HashMap
+15:57:53  35:		1	160	java.math.BigInteger[][]
+15:57:53  36:		10	160	java.nio.file.StandardOpenOption
+15:57:53  37:		9	144	java.util.KeyValueHolder
+15:57:53  38:		2	128	sun.nio.ch.FileChannelImpl
+15:57:53  39:		2	128	java.util.concurrent.ConcurrentHashMap
+15:57:53  40:		3	120	sun.nio.fs.WindowsPath
+15:57:53  41:		3	120	jdk.internal.ref.CleanerImpl$PhantomCleanableRef
+15:57:53  42:		7	112	java.util.ImmutableCollections$Set12
+15:57:53  43:		7	112	java.nio.charset.CoderResult
+15:57:53  44:		2	112	java.lang.invoke.MethodHandle[]
+15:57:53  45:		6	96	java.lang.Thread$State
+15:57:53  46:		4	96	java.io.ObjectStreamField[]
+15:57:53  47:		4	96	java.io.File
+15:57:53  48:		2	96	java.lang.Module
+15:57:53  49:		4	96	sun.nio.fs.WindowsPathParser$Result
+15:57:53  50:		2	96	java.io.FileCleanable
+15:57:53  51:		2	96	java.lang.ThreadGroup
+15:57:53  52:		5	80	sun.nio.fs.WindowsPathType
+15:57:53  53:		1	80	java.net.URI
+15:57:53  54:		2	80	java.lang.OutOfMemoryError[]
+15:57:53  55:		2	80	java.util.concurrent.TimeUnit[]
+15:57:53  56:		1	80	java.lang.ThreadLocal$ThreadLocalMap$Entry[]
+15:57:53  57:		3	72	java.lang.ref.WeakReference
+15:57:53  58:		3	72	java.lang.invoke.MethodHandles$Lookup
+15:57:53  59:		2	64	java.lang.ThreadLocal$ThreadLocalMap$Entry
+15:57:53  60:		2	64	sun.nio.fs.WindowsChannelFactory$Flags
+15:57:53  61:		2	64	java.nio.file.attribute.FileTime
+15:57:53  62:		4	64	jdk.internal.loader.NativeLibraries$1
+15:57:53  63:		4	64	java.nio.file.LinkOption[]
+15:57:53  64:		2	64	jdk.internal.loader.NativeLibraries$NativeLibraryImpl
+15:57:53  65:		2	64	java.io.FileOutputStream
+15:57:53  66:		1	56	java.nio.file.StandardOpenOption[]
+15:57:53  67:		2	48	java.util.ImmutableCollections$MapN
+15:57:53  68:		2	48	java.util.Date
+15:57:53  69:		2	48	java.util.ArrayDeque$DeqIterator
+15:57:53  70:		1	48	java.util.Properties
+15:57:53  71:		2	48	java.lang.ref.ReferenceQueue$Null
+15:57:53  72:		2	48	sun.nio.ch.NativeThreadSet
+15:57:53  73:		1	48	java.nio.HeapCharBuffer
+15:57:53  74:		2	48	java.lang.ref.ReferenceQueue
+15:57:53  75:		1	40	java.lang.NullPointerException
+15:57:53  76:		1	40	sun.nio.cs.StandardCharsets$Aliases
+15:57:53  77:		1	40	java.lang.Thread$State[]
+15:57:53  78:		2	32	sun.nio.fs.WindowsFileAttributeViews$Basic
+15:57:53  79:		1	32	sun.nio.fs.NativeBuffer
+15:57:53  80:		1	32	java.lang.VirtualMachineError
+15:57:53  81:		1	32	java.io.FileInputStream
+15:57:53  82:		2	32	java.util.ImmutableCollections$SetN
+15:57:53  83:		2	32	sun.nio.ch.FileChannelImpl$Closer
+15:57:53  84:		2	32	java.lang.Class[]
+15:57:53  85:		1	32	java.io.PrintStream
+15:57:53  86:		1	32	java.util.IdentityHashMap
+15:57:53  87:		1	32	java.lang.ArithmeticException
+15:57:53  88:		2	32	java.util.HashSet
+15:57:53  89:		1	32	java.util.HashMap$EntryIterator
+15:57:53  90:		1	32	java.nio.charset.CoderResult[]
+15:57:53  91:		2	32	java.util.ImmutableCollections$ListN
+15:57:53  92:		1	32	java.lang.ThreadGroup[]
+15:57:53  93:		4	32	java.lang.ref.ReferenceQueue$Lock
+15:57:53  94:		2	32	java.nio.file.AccessMode[]
+15:57:53  95:		1	32	java.io.BufferedOutputStream
+15:57:53  96:		1	32	sun.nio.fs.WindowsPathType[]
+15:57:53  97:		1	32	java.io.BufferedInputStream
+15:57:53  98:		1	32	java.lang.Thread[]
+15:57:53  99:		1	24	sun.nio.fs.NativeBuffer[]
+15:57:53  100:		1	24	java.net.URI$Parser
+15:57:53  101:		1	24	sun.nio.fs.WindowsFileSystem
+15:57:53  102:		1	24	java.io.OutputStreamWriter
+15:57:53  103:		1	24	sun.nio.cs.StandardCharsets
+15:57:53  104:		1	24	java.lang.reflect.ReflectPermission
+15:57:53  105:		1	24	java.util.ImmutableCollections$MapN$MapNIterator
+15:57:53  106:		1	24	java.lang.Module$ArchivedData
+15:57:53  107:		1	24	java.lang.ThreadLocal$ThreadLocalMap
+15:57:53  108:		1	16	jdk.internal.misc.TerminatingThreadLocal$1
+15:57:53  109:		1	16	java.util.IdentityHashMap$KeySet
+15:57:53  110:		1	16	java.util.Collections$UnmodifiableSet
+15:57:53  111:		1	16	java.util.HashMap$EntrySet
+15:57:53  112:		1	16	java.util.Arrays$ArrayItr
+15:57:53  113:		1	16	jdk.internal.reflect.ReflectionFactory
+15:57:53  114:		1	16	java.util.concurrent.ConcurrentHashMap$ValuesView
+15:57:53  115:		1	16	java.util.concurrent.atomic.AtomicInteger
+15:57:53  116:		1	16	sun.nio.fs.NativeBuffer$Deallocator
+15:57:53  117:		1	16	sun.util.calendar.Gregorian
+15:57:53  118:		1	16	java.util.ImmutableCollections$MapN$1
+15:57:53  119:		1	16	java.util.Arrays$ArrayList
+15:57:53  120:		2	16	sun.nio.ch.FileDispatcherImpl
+15:57:53  121:		1	16	java.util.Collections$SetFromMap
+15:57:53  122:		1	16	sun.nio.fs.NativeBuffers$1
+15:57:53  123:		1	16	java.nio.file.attribute.FileAttribute[]
+15:57:53  124:		1	16	sun.nio.fs.WindowsFileSystemProvider
+15:57:53  125:		1	16	java.lang.StackTraceElement[]
+15:57:53  126:		1	16	jdk.internal.util.SystemProps$Raw
+15:57:53  127:		1	16	java.lang.ThreadLocal
+15:57:53  128:		1	16	java.security.ProtectionDomain[]
+15:57:53  129:		1	8	jdk.internal.misc.Unsafe
+15:57:53  130:		1	8	java.io.FileDescriptor$1
+15:57:53  131:		1	8	java.util.Collections$EmptyIterator
+15:57:53  132:		1	8	jdk.internal.reflect.ReflectionFactory$GetReflectionFactoryAction
+15:57:53  133:		1	8	java.lang.String$CaseInsensitiveComparator
+15:57:53  134:		1	8	java.lang.Runtime
+15:57:53  135:		1	8	sun.nio.fs.WindowsChannelFactory$1
+15:57:53  136:		1	8	java.lang.ref.Reference$1
+15:57:53  137:		1	8	java.lang.System$2
+15:57:53  138:		1	8	java.lang.reflect.ReflectAccess
+15:57:53  139:		1	8	java.nio.file.FileSystems$DefaultFileSystemHolder$1
+15:57:53  140:		1	8	java.lang.invoke.MemberName$Factory
+15:57:53  141:		1	8	java.lang.CharacterDataLatin1
+15:57:53  Total : 	2940	137072
+15:57:53  ]
+15:57:53   exitValue = -1
+15:57:53  
+15:57:53  java.lang.RuntimeException: Test ERROR java.lang.RuntimeException: 'java.nio.HeapByteBuffer' missing from stdout/stderr 
+15:57:53  
+15:57:53  	at ClhsdbJhisto.main(ClhsdbJhisto.java:71)
+15:57:53  	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+15:57:53  	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+15:57:53  	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+15:57:53  	at java.base/java.lang.reflect.Method.invoke(Method.java:569)
+15:57:53  	at com.sun.javatest.regtest.agent.MainWrapper$MainTask.run(MainWrapper.java:138)
+15:57:53  	at java.base/java.lang.Thread.run(Thread.java:840)
+15:57:53  Caused by: java.lang.RuntimeException: 'java.nio.HeapByteBuffer' missing from stdout/stderr 
+15:57:53  
+15:57:53  	at jdk.test.lib.process.OutputAnalyzer.shouldMatch(OutputAnalyzer.java:340)
+15:57:53  	at ClhsdbLauncher.runCmd(ClhsdbLauncher.java:166)
+15:57:53  	at ClhsdbLauncher.run(ClhsdbLauncher.java:203)
+15:57:53  	at ClhsdbJhisto.main(ClhsdbJhisto.java:67)
+15:57:53  	... 6 more
+...
+```
+
+**serviceability/sa/ClhsdbJstack.java#id0**
+```
+...
+15:57:56  Command line: ['c:\jenkins\workspace\Grinder\jdkbinary\j2sdk-image\bin\java.exe' '-ea' '-esa' '-Xmx512m' '-Xcomp' '-cp' 'C:\jenkins\workspace\Grinder\aqa-tests\TKG\output_17180275918774\hotspot_serviceability_0\work\classes\1\serviceability\sa\ClhsdbJstack_id0.d;C:\jenkins\workspace\Grinder\aqa-tests\TKG\output_17180275918774\hotspot_serviceability_0\work\classes\1\test\lib' 'jdk.test.lib.apps.LingeredApp' 'b62f77a8-cf68-4191-9cc1-cdab2657b4fc.lck']
+15:57:56  Started LingeredApp (-Xcomp) with pid 12216
+15:57:56  Starting clhsdb against 12216
+15:57:56  [2024-06-10T13:57:53.662418Z] Gathering output for process 15332
+15:57:56  [2024-06-10T13:57:55.370440400Z] Waiting for completion for process 15332
+15:57:56  [2024-06-10T13:57:55.370440400Z] Waiting for completion finished for process 15332
+15:57:56  Output: 
+15:57:56  Attaching to process 12216, please wait...
+15:57:56  hsdb> hsdb> + verbose true
+15:57:56  hsdb> + jstack -v
+15:57:56  Deadlock Detection:
+15:57:56  
+15:57:56  No deadlocks found.
+15:57:56  
+15:57:56  "main" #1 prio=5 tid=0x0353a620 nid=0x2a34 waiting on condition [0x02d1f000]
+15:57:56     java.lang.Thread.State: TIMED_WAITING (sleeping)
+15:57:56     JavaThread state: _thread_blocked
+15:57:56   - java.lang.Thread.sleep(long) @bci=0, pc=0x03815aae, Method*=0x26035ad0 (Compiled frame; information may be imprecise)
+15:57:56   - jdk.test.lib.apps.LingeredApp.main(java.lang.String[]) @bci=158, line=598, pc=0x037bacec, Method*=0x264025d0 (Compiled frame)
+15:57:56  	- locked <0x058bff98> (a java.lang.Object)
+15:57:56  
+15:57:56  Locked ownable synchronizers:
+15:57:56      - None
+15:57:56  
+15:57:56  "Reference Handler" #2 daemon prio=10 tid=0x030ecc30 nid=0x3ab0 waiting on condition [0x033ff000]
+15:57:56     java.lang.Thread.State: RUNNABLE
+15:57:56     JavaThread state: _thread_blocked
+15:57:56   - java.lang.ref.Reference.waitForReferencePendingList() @bci=0, pc=0x0362873c, Method*=0x26031c50 (Interpreted frame)
+15:57:56   - java.lang.ref.Reference.processPendingReferences() @bci=0, line=253, pc=0x03625e50, Method*=0x26031e38 (Interpreted frame)
+15:57:56   - java.lang.ref.Reference$ReferenceHandler.run() @bci=0, line=215, pc=0x03625e50, Method*=0x26146718 (Interpreted frame)
+15:57:56  
+15:57:56  Locked ownable synchronizers:
+15:57:56      - None
+15:57:56  
+15:57:56  "Finalizer" #3 daemon prio=8 tid=0x030ef880 nid=0x3300 in Object.wait() [0x0348f000]
+15:57:56     java.lang.Thread.State: WAITING (on object monitor)
+15:57:56     JavaThread state: _thread_blocked
+15:57:56   - java.lang.Object.wait(long) @bci=0, pc=0x0362873c, Method*=0x26001108 (Interpreted frame)
+15:57:56  	- waiting on <0x0580a9a8> (a java.lang.ref.ReferenceQueue$Lock)
+15:57:56   - java.lang.ref.ReferenceQueue.remove(long) @bci=59, line=155, pc=0x03625e50, Method*=0x26147c68 (Interpreted frame)
+15:57:56  	- locked <0x0580a9a8> (a java.lang.ref.ReferenceQueue$Lock)
+15:57:56   - java.lang.ref.ReferenceQueue.remove() @bci=2, line=176, pc=0x03625f59, Method*=0x26147ce8 (Interpreted frame)
+15:57:56   - java.lang.ref.Finalizer$FinalizerThread.run() @bci=37, line=172, pc=0x03625f59, Method*=0x26149728 (Interpreted frame)
+15:57:56  
+15:57:56  Locked ownable synchronizers:
+15:57:56      - None
+15:57:56  
+15:57:56  "Signal Dispatcher" #4 daemon prio=9 tid=0x031107e8 nid=0x4024 waiting on condition [0x00000000]
+15:57:56     java.lang.Thread.State: RUNNABLE
+15:57:56     JavaThread state: _thread_blocked
+15:57:56  
+15:57:56  Locked ownable synchronizers:
+15:57:56      - None
+15:57:56  
+15:57:56  "Attach Listener" #5 daemon prio=5 tid=0x031110f8 nid=0x3868 runnable [0x00000000]
+15:57:56     java.lang.Thread.State: RUNNABLE
+15:57:56     JavaThread state: _thread_blocked
+15:57:56  
+15:57:56  Locked ownable synchronizers:
+15:57:56      - None
+15:57:56  
+15:57:56  "Common-Cleaner" #11 daemon prio=8 tid=0x25ac4840 nid=0x3c88 in Object.wait() [0x25faf000]
+15:57:56     java.lang.Thread.State: TIMED_WAITING (on object monitor)
+15:57:56     JavaThread state: _thread_blocked
+15:57:56   - java.lang.Object.wait(long) @bci=0, pc=0x0379ce74, Method*=0x26001108 (Compiled frame; information may be imprecise)
+15:57:56  	- waiting on <no object reference available>
+15:57:56   - java.lang.ref.ReferenceQueue.remove(long) @bci=59, line=155, pc=0x0379ae94, Method*=0x26147c68 (Compiled frame)
+15:57:56  	- locked <0x058b2540> (a java.lang.ref.ReferenceQueue$Lock)
+15:57:56   - jdk.internal.ref.CleanerImpl.run() @bci=45, line=140, pc=0x0379a144, Method*=0x26281368 (Compiled frame)
+15:57:56   - java.lang.Thread.run() @bci=11, line=840, pc=0x03799b10, Method*=0x260366f8 (Compiled frame)
+15:57:56   - jdk.internal.misc.InnocuousThread.run() @bci=20, line=162, pc=0x03799b10, Method*=0x26283000 (Compiled frame)
+15:57:56  
+15:57:56  Locked ownable synchronizers:
+15:57:56      - None
+15:57:56  
+15:57:56  "SteadyStateThread" #12 prio=5 tid=0x25ad5df8 nid=0x718 waiting for monitor entry [0x2704f000]
+15:57:56     java.lang.Thread.State: BLOCKED (on object monitor)
+15:57:56     JavaThread state: _thread_blocked
+15:57:56  Error occurred during stack walking:
+15:57:56  
+15:57:56  Locked ownable synchronizers:
+15:57:56      - None
+15:57:56  
+15:57:56  hsdb> + quit
+15:57:56  sun.jvm.hotspot.utilities.AssertionFailure: overflow
+15:57:56  	at jdk.hotspot.agent/sun.jvm.hotspot.utilities.Assert.that(Assert.java:32)
+15:57:56  	at jdk.hotspot.agent/sun.jvm.hotspot.compiler.ImmutableOopMapSet.updateRegisterMap(ImmutableOopMapSet.java:286)
+15:57:56  	at jdk.hotspot.agent/sun.jvm.hotspot.runtime.x86.X86Frame.senderForCompiledFrame(X86Frame.java:401)
+15:57:56  	at jdk.hotspot.agent/sun.jvm.hotspot.runtime.x86.X86Frame.sender(X86Frame.java:292)
+15:57:56  	at jdk.hotspot.agent/sun.jvm.hotspot.runtime.Frame.sender(Frame.java:207)
+15:57:56  	at jdk.hotspot.agent/sun.jvm.hotspot.runtime.VFrame.newVFrame(VFrame.java:83)
+15:57:56  	at jdk.hotspot.agent/sun.jvm.hotspot.runtime.JavaThread.getLastJavaVFrameDbg(JavaThread.java:240)
+15:57:56  	at jdk.hotspot.agent/sun.jvm.hotspot.tools.StackTrace.run(StackTrace.java:81)
+15:57:56  	at jdk.hotspot.agent/sun.jvm.hotspot.CommandProcessor$27.doit(CommandProcessor.java:1157)
+15:57:56  	at jdk.hotspot.agent/sun.jvm.hotspot.CommandProcessor.executeCommand(CommandProcessor.java:2181)
+15:57:56  	at jdk.hotspot.agent/sun.jvm.hotspot.CommandProcessor.executeCommand(CommandProcessor.java:2151)
+15:57:56  	at jdk.hotspot.agent/sun.jvm.hotspot.CommandProcessor.run(CommandProcessor.java:2022)
+15:57:56  	at jdk.hotspot.agent/sun.jvm.hotspot.CLHSDB.run(CLHSDB.java:112)
+15:57:56  	at jdk.hotspot.agent/sun.jvm.hotspot.CLHSDB.main(CLHSDB.java:44)
+15:57:56  	at jdk.hotspot.agent/sun.jvm.hotspot.SALauncher.runCLHSDB(SALauncher.java:281)
+15:57:56  	at jdk.hotspot.agent/sun.jvm.hotspot.SALauncher.main(SALauncher.java:500)
+15:57:56  
+15:57:56   LingeredApp stdout: [];
+15:57:56   LingeredApp stderr: []
+15:57:56   LingeredApp exitValue = 0
+15:57:56  STDERR:
+15:57:56   stdout: [ + jstack -v
+15:57:56  Deadlock Detection:
+15:57:56  
+15:57:56  No deadlocks found.
+15:57:56  
+15:57:56  "main" #1 prio=5 tid=0x0353a620 nid=0x2a34 waiting on condition [0x02d1f000]
+15:57:56     java.lang.Thread.State: TIMED_WAITING (sleeping)
+15:57:56     JavaThread state: _thread_blocked
+15:57:56   - java.lang.Thread.sleep(long) @bci=0, pc=0x03815aae, Method*=0x26035ad0 (Compiled frame; information may be imprecise)
+15:57:56   - jdk.test.lib.apps.LingeredApp.main(java.lang.String[]) @bci=158, line=598, pc=0x037bacec, Method*=0x264025d0 (Compiled frame)
+15:57:56  	- locked <0x058bff98> (a java.lang.Object)
+15:57:56  
+15:57:56  Locked ownable synchronizers:
+15:57:56      - None
+15:57:56  
+15:57:56  "Reference Handler" #2 daemon prio=10 tid=0x030ecc30 nid=0x3ab0 waiting on condition [0x033ff000]
+15:57:56     java.lang.Thread.State: RUNNABLE
+15:57:56     JavaThread state: _thread_blocked
+15:57:56   - java.lang.ref.Reference.waitForReferencePendingList() @bci=0, pc=0x0362873c, Method*=0x26031c50 (Interpreted frame)
+15:57:56   - java.lang.ref.Reference.processPendingReferences() @bci=0, line=253, pc=0x03625e50, Method*=0x26031e38 (Interpreted frame)
+15:57:56   - java.lang.ref.Reference$ReferenceHandler.run() @bci=0, line=215, pc=0x03625e50, Method*=0x26146718 (Interpreted frame)
+15:57:56  
+15:57:56  Locked ownable synchronizers:
+15:57:56      - None
+15:57:56  
+15:57:56  "Finalizer" #3 daemon prio=8 tid=0x030ef880 nid=0x3300 in Object.wait() [0x0348f000]
+15:57:56     java.lang.Thread.State: WAITING (on object monitor)
+15:57:56     JavaThread state: _thread_blocked
+15:57:56   - java.lang.Object.wait(long) @bci=0, pc=0x0362873c, Method*=0x26001108 (Interpreted frame)
+15:57:56  	- waiting on <0x0580a9a8> (a java.lang.ref.ReferenceQueue$Lock)
+15:57:56   - java.lang.ref.ReferenceQueue.remove(long) @bci=59, line=155, pc=0x03625e50, Method*=0x26147c68 (Interpreted frame)
+15:57:56  	- locked <0x0580a9a8> (a java.lang.ref.ReferenceQueue$Lock)
+15:57:56   - java.lang.ref.ReferenceQueue.remove() @bci=2, line=176, pc=0x03625f59, Method*=0x26147ce8 (Interpreted frame)
+15:57:56   - java.lang.ref.Finalizer$FinalizerThread.run() @bci=37, line=172, pc=0x03625f59, Method*=0x26149728 (Interpreted frame)
+15:57:56  
+15:57:56  Locked ownable synchronizers:
+15:57:56      - None
+15:57:56  
+15:57:56  "Signal Dispatcher" #4 daemon prio=9 tid=0x031107e8 nid=0x4024 waiting on condition [0x00000000]
+15:57:56     java.lang.Thread.State: RUNNABLE
+15:57:56     JavaThread state: _thread_blocked
+15:57:56  
+15:57:56  Locked ownable synchronizers:
+15:57:56      - None
+15:57:56  
+15:57:56  "Attach Listener" #5 daemon prio=5 tid=0x031110f8 nid=0x3868 runnable [0x00000000]
+15:57:56     java.lang.Thread.State: RUNNABLE
+15:57:56     JavaThread state: _thread_blocked
+15:57:56  
+15:57:56  Locked ownable synchronizers:
+15:57:56      - None
+15:57:56  
+15:57:56  "Common-Cleaner" #11 daemon prio=8 tid=0x25ac4840 nid=0x3c88 in Object.wait() [0x25faf000]
+15:57:56     java.lang.Thread.State: TIMED_WAITING (on object monitor)
+15:57:56     JavaThread state: _thread_blocked
+15:57:56   - java.lang.Object.wait(long) @bci=0, pc=0x0379ce74, Method*=0x26001108 (Compiled frame; information may be imprecise)
+15:57:56  	- waiting on <no object reference available>
+15:57:56   - java.lang.ref.ReferenceQueue.remove(long) @bci=59, line=155, pc=0x0379ae94, Method*=0x26147c68 (Compiled frame)
+15:57:56  	- locked <0x058b2540> (a java.lang.ref.ReferenceQueue$Lock)
+15:57:56   - jdk.internal.ref.CleanerImpl.run() @bci=45, line=140, pc=0x0379a144, Method*=0x26281368 (Compiled frame)
+15:57:56   - java.lang.Thread.run() @bci=11, line=840, pc=0x03799b10, Method*=0x260366f8 (Compiled frame)
+15:57:56   - jdk.internal.misc.InnocuousThread.run() @bci=20, line=162, pc=0x03799b10, Method*=0x26283000 (Compiled frame)
+15:57:56  
+15:57:56  Locked ownable synchronizers:
+15:57:56      - None
+15:57:56  
+15:57:56  "SteadyStateThread" #12 prio=5 tid=0x25ad5df8 nid=0x718 waiting for monitor entry [0x2704f000]
+15:57:56     java.lang.Thread.State: BLOCKED (on object monitor)
+15:57:56     JavaThread state: _thread_blocked
+15:57:56  Error occurred during stack walking:
+15:57:56  
+15:57:56  Locked ownable synchronizers:
+15:57:56      - None
+15:57:56  
+15:57:56  ];
+15:57:56   stderr: [ + jstack -v
+15:57:56  Deadlock Detection:
+15:57:56  
+15:57:56  No deadlocks found.
+15:57:56  
+15:57:56  "main" #1 prio=5 tid=0x0353a620 nid=0x2a34 waiting on condition [0x02d1f000]
+15:57:56     java.lang.Thread.State: TIMED_WAITING (sleeping)
+15:57:56     JavaThread state: _thread_blocked
+15:57:56   - java.lang.Thread.sleep(long) @bci=0, pc=0x03815aae, Method*=0x26035ad0 (Compiled frame; information may be imprecise)
+15:57:56   - jdk.test.lib.apps.LingeredApp.main(java.lang.String[]) @bci=158, line=598, pc=0x037bacec, Method*=0x264025d0 (Compiled frame)
+15:57:56  	- locked <0x058bff98> (a java.lang.Object)
+15:57:56  
+15:57:56  Locked ownable synchronizers:
+15:57:56      - None
+15:57:56  
+15:57:56  "Reference Handler" #2 daemon prio=10 tid=0x030ecc30 nid=0x3ab0 waiting on condition [0x033ff000]
+15:57:56     java.lang.Thread.State: RUNNABLE
+15:57:56     JavaThread state: _thread_blocked
+15:57:56   - java.lang.ref.Reference.waitForReferencePendingList() @bci=0, pc=0x0362873c, Method*=0x26031c50 (Interpreted frame)
+15:57:56   - java.lang.ref.Reference.processPendingReferences() @bci=0, line=253, pc=0x03625e50, Method*=0x26031e38 (Interpreted frame)
+15:57:56   - java.lang.ref.Reference$ReferenceHandler.run() @bci=0, line=215, pc=0x03625e50, Method*=0x26146718 (Interpreted frame)
+15:57:56  
+15:57:56  Locked ownable synchronizers:
+15:57:56      - None
+15:57:56  
+15:57:56  "Finalizer" #3 daemon prio=8 tid=0x030ef880 nid=0x3300 in Object.wait() [0x0348f000]
+15:57:56     java.lang.Thread.State: WAITING (on object monitor)
+15:57:56     JavaThread state: _thread_blocked
+15:57:56   - java.lang.Object.wait(long) @bci=0, pc=0x0362873c, Method*=0x26001108 (Interpreted frame)
+15:57:56  	- waiting on <0x0580a9a8> (a java.lang.ref.ReferenceQueue$Lock)
+15:57:56   - java.lang.ref.ReferenceQueue.remove(long) @bci=59, line=155, pc=0x03625e50, Method*=0x26147c68 (Interpreted frame)
+15:57:56  	- locked <0x0580a9a8> (a java.lang.ref.ReferenceQueue$Lock)
+15:57:56   - java.lang.ref.ReferenceQueue.remove() @bci=2, line=176, pc=0x03625f59, Method*=0x26147ce8 (Interpreted frame)
+15:57:56   - java.lang.ref.Finalizer$FinalizerThread.run() @bci=37, line=172, pc=0x03625f59, Method*=0x26149728 (Interpreted frame)
+15:57:56  
+15:57:56  Locked ownable synchronizers:
+15:57:56      - None
+15:57:56  
+15:57:56  "Signal Dispatcher" #4 daemon prio=9 tid=0x031107e8 nid=0x4024 waiting on condition [0x00000000]
+15:57:56     java.lang.Thread.State: RUNNABLE
+15:57:56     JavaThread state: _thread_blocked
+15:57:56  
+15:57:56  Locked ownable synchronizers:
+15:57:56      - None
+15:57:56  
+15:57:56  "Attach Listener" #5 daemon prio=5 tid=0x031110f8 nid=0x3868 runnable [0x00000000]
+15:57:56     java.lang.Thread.State: RUNNABLE
+15:57:56     JavaThread state: _thread_blocked
+15:57:56  
+15:57:56  Locked ownable synchronizers:
+15:57:56      - None
+15:57:56  
+15:57:56  "Common-Cleaner" #11 daemon prio=8 tid=0x25ac4840 nid=0x3c88 in Object.wait() [0x25faf000]
+15:57:56     java.lang.Thread.State: TIMED_WAITING (on object monitor)
+15:57:56     JavaThread state: _thread_blocked
+15:57:56   - java.lang.Object.wait(long) @bci=0, pc=0x0379ce74, Method*=0x26001108 (Compiled frame; information may be imprecise)
+15:57:56  	- waiting on <no object reference available>
+15:57:56   - java.lang.ref.ReferenceQueue.remove(long) @bci=59, line=155, pc=0x0379ae94, Method*=0x26147c68 (Compiled frame)
+15:57:56  	- locked <0x058b2540> (a java.lang.ref.ReferenceQueue$Lock)
+15:57:56   - jdk.internal.ref.CleanerImpl.run() @bci=45, line=140, pc=0x0379a144, Method*=0x26281368 (Compiled frame)
+15:57:56   - java.lang.Thread.run() @bci=11, line=840, pc=0x03799b10, Method*=0x260366f8 (Compiled frame)
+15:57:56   - jdk.internal.misc.InnocuousThread.run() @bci=20, line=162, pc=0x03799b10, Method*=0x26283000 (Compiled frame)
+15:57:56  
+15:57:56  Locked ownable synchronizers:
+15:57:56      - None
+15:57:56  
+15:57:56  "SteadyStateThread" #12 prio=5 tid=0x25ad5df8 nid=0x718 waiting for monitor entry [0x2704f000]
+15:57:56     java.lang.Thread.State: BLOCKED (on object monitor)
+15:57:56     JavaThread state: _thread_blocked
+15:57:56  Error occurred during stack walking:
+15:57:56  
+15:57:56  Locked ownable synchronizers:
+15:57:56      - None
+15:57:56  
+15:57:56  ]
+15:57:56   exitValue = -1
+15:57:56  
+15:57:56  java.lang.RuntimeException: Test ERROR (with -Xcomp=true) java.lang.RuntimeException: 'LingeredApp.steadyState' missing from stdout/stderr 
+15:57:56  
+15:57:56  	at ClhsdbJstack.testJstack(ClhsdbJstack.java:80)
+15:57:56  	at ClhsdbJstack.main(ClhsdbJstack.java:89)
+15:57:56  	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+15:57:56  	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+15:57:56  	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+15:57:56  	at java.base/java.lang.reflect.Method.invoke(Method.java:569)
+15:57:56  	at com.sun.javatest.regtest.agent.MainWrapper$MainTask.run(MainWrapper.java:138)
+15:57:56  	at java.base/java.lang.Thread.run(Thread.java:840)
+15:57:56  Caused by: java.lang.RuntimeException: 'LingeredApp.steadyState' missing from stdout/stderr 
+15:57:56  
+15:57:56  	at jdk.test.lib.process.OutputAnalyzer.shouldMatch(OutputAnalyzer.java:340)
+15:57:56  	at ClhsdbLauncher.runCmd(ClhsdbLauncher.java:166)
+15:57:56  	at ClhsdbLauncher.run(ClhsdbLauncher.java:203)
+15:57:56  	at ClhsdbJstack.testJstack(ClhsdbJstack.java:76)
+15:57:56  	... 7 more
+...
+```
+
+**serviceability/sa/ClhsdbJstackXcompStress.java**
+```
+...
+15:58:07  Command line: ['c:\jenkins\workspace\Grinder\jdkbinary\j2sdk-image\bin\java.exe' '-ea' '-esa' '-Xmx512m' '-Xcomp' '-XX:CompileCommand=dontinline,LingeredAppWithRecComputation.factorial' '-XX:CompileCommand=compileonly,LingeredAppWithRecComputation.testLoop' '-XX:CompileCommand=compileonly,LingeredAppWithRecComputation.factorial' '-cp' 'C:\jenkins\workspace\Grinder\aqa-tests\TKG\output_17180275918774\hotspot_serviceability_0\work\classes\2\serviceability\sa\ClhsdbJstackXcompStress.d;C:\jenkins\workspace\Grinder\aqa-tests\TKG\output_17180275918774\hotspot_serviceability_0\work\classes\2\test\lib' 'LingeredAppWithRecComputation' '465b21ce-25c4-482b-89ce-b9998fbf7715.lck']
+15:58:07  Started LingeredAppWithRecComputation with pid 16652
+15:58:07  [2024-06-10T13:57:58.235483100Z] Gathering output for process 13276
+15:58:07  DEBUG: [ - LingeredAppWithRecComputation.testLoop() @bci=16, line=46 (Compiled frame; information may be imprecise)]
+15:58:07  [2024-06-10T13:57:59.149495100Z] Gathering output for process 13556
+15:58:07  [2024-06-10T13:57:59.992509700Z] Gathering output for process 11484
+15:58:07  [2024-06-10T13:58:00.972523500Z] Gathering output for process 13900
+15:58:07  [2024-06-10T13:58:01.726533700Z] Gathering output for process 17348
+15:58:07  [2024-06-10T13:58:02.828552200Z] Gathering output for process 10596
+15:58:07  [2024-06-10T13:58:03.699566200Z] Gathering output for process 2524
+15:58:07  [2024-06-10T13:58:04.536572200Z] Waiting for completion for process 2524
+15:58:07  [2024-06-10T13:58:04.536572200Z] Waiting for completion finished for process 2524
+15:58:07   LingeredApp stdout: [CompileCommand: dontinline LingeredAppWithRecComputation.factorial bool dontinline = true
+15:58:07  CompileCommand: compileonly LingeredAppWithRecComputation.testLoop bool compileonly = true
+15:58:07  CompileCommand: compileonly LingeredAppWithRecComputation.factorial bool compileonly = true
+15:58:07  ];
+15:58:07   LingeredApp stderr: []
+15:58:07   LingeredApp exitValue = 0
+15:58:07  STDERR:
+15:58:07   stdout: [Attaching to process ID 16652, please wait...
+15:58:07  Debugger attached successfully.
+15:58:07  Client compiler detected.
+15:58:07  JVM version is 17.0.12-beta+5-ea
+15:58:07  Deadlock Detection:
+15:58:07  
+15:58:07  No deadlocks found.
+15:58:07  
+15:58:07  "main" #1 prio=5 tid=0x009e9ca0 nid=0x3308 waiting on condition [0x0087f000]
+15:58:07     java.lang.Thread.State: TIMED_WAITING (sleeping)
+15:58:07     JavaThread state: _thread_blocked
+15:58:07   - java.lang.Thread.sleep(long) @bci=0 (Interpreted frame)
+15:58:07   - jdk.test.lib.apps.LingeredApp.main(java.lang.String[]) @bci=158, line=598 (Interpreted frame)
+15:58:07  	- locked <0x047f46c0> (a java.lang.Object)
+15:58:07   - LingeredAppWithRecComputation.main(java.lang.String[]) @bci=33, line=65 (Interpreted frame)
+15:58:07  
+15:58:07  
+15:58:07  "Reference Handler" #2 daemon prio=10 tid=0x246c1008 nid=0x2738 waiting on condition [0x2498f000]
+15:58:07     java.lang.Thread.State: RUNNABLE
+15:58:07     JavaThread state: _thread_blocked
+15:58:07   - java.lang.ref.Reference.waitForReferencePendingList() @bci=0 (Interpreted frame)
+15:58:07   - java.lang.ref.Reference.processPendingReferences() @bci=0, line=253 (Interpreted frame)
+15:58:07   - java.lang.ref.Reference$ReferenceHandler.run() @bci=0, line=215 (Interpreted frame)
+15:58:07  
+15:58:07  
+15:58:07  "Finalizer" #3 daemon prio=8 tid=0x246c2c38 nid=0x2154 in Object.wait() [0x24a1f000]
+15:58:07     java.lang.Thread.State: WAITING (on object monitor)
+15:58:07     JavaThread state: _thread_blocked
+15:58:07   - java.lang.Object.wait(long) @bci=0 (Interpreted frame)
+15:58:07  	- waiting on <0x0460a9a8> (a java.lang.ref.ReferenceQueue$Lock)
+15:58:07   - java.lang.ref.ReferenceQueue.remove(long) @bci=59, line=155 (Interpreted frame)
+15:58:07  	- locked <0x0460a9a8> (a java.lang.ref.ReferenceQueue$Lock)
+15:58:07   - java.lang.ref.ReferenceQueue.remove() @bci=2, line=176 (Interpreted frame)
+15:58:07   - java.lang.ref.Finalizer$FinalizerThread.run() @bci=37, line=172 (Interpreted frame)
+15:58:07  
+15:58:07  
+15:58:07  "Signal Dispatcher" #4 daemon prio=9 tid=0x00acdfc0 nid=0x4138 waiting on condition [0x00000000]
+15:58:07     java.lang.Thread.State: RUNNABLE
+15:58:07     JavaThread state: _thread_blocked
+15:58:07  
+15:58:07  
+15:58:07  "Attach Listener" #5 daemon prio=5 tid=0x00acebe0 nid=0x308c runnable [0x00000000]
+15:58:07     java.lang.Thread.State: RUNNABLE
+15:58:07     JavaThread state: _thread_blocked
+15:58:07  
+15:58:07  
+15:58:07  "Common-Cleaner" #11 daemon prio=8 tid=0x24771080 nid=0x304c in Object.wait() [0x2604f000]
+15:58:07     java.lang.Thread.State: TIMED_WAITING (on object monitor)
+15:58:07     JavaThread state: _thread_blocked
+15:58:07   - java.lang.Object.wait(long) @bci=0 (Interpreted frame)
+15:58:07  	- waiting on <0x0469e078> (a java.lang.ref.ReferenceQueue$Lock)
+15:58:07   - java.lang.ref.ReferenceQueue.remove(long) @bci=59, line=155 (Interpreted frame)
+15:58:07  	- locked <0x0469e078> (a java.lang.ref.ReferenceQueue$Lock)
+15:58:07   - jdk.internal.ref.CleanerImpl.run() @bci=45, line=140 (Interpreted frame)
+15:58:07   - java.lang.Thread.run() @bci=11, line=840 (Interpreted frame)
+15:58:07   - jdk.internal.misc.InnocuousThread.run() @bci=20, line=162 (Interpreted frame)
+15:58:07  
+15:58:07  
+15:58:07  "LingeredAppWithRecComputation.factorial()" #12 prio=5 tid=0x247f3480 nid=0x25f4 runnable [0x00000000]
+15:58:07     java.lang.Thread.State: RUNNABLE
+15:58:07     JavaThread state: _thread_in_java
+15:58:07   - LingeredAppWithRecComputation.factorial(int) @bci=22, line=37 (Compiled frame; information may be imprecise)
+15:58:07  Error occurred during stack walking:
+15:58:07  
+15:58:07  
+15:58:07  "SteadyStateThread" #13 prio=5 tid=0x247f4268 nid=0x28cc waiting for monitor entry [0x264af000]
+15:58:07     java.lang.Thread.State: BLOCKED (on object monitor)
+15:58:07     JavaThread state: _thread_blocked
+15:58:07   - jdk.test.lib.apps.LingeredApp.steadyState(java.lang.Object) @bci=8, line=536 (Interpreted frame)
+15:58:07  	- waiting to lock <0x047f46c0> (a java.lang.Object)
+15:58:07   - jdk.test.lib.apps.LingeredApp$1.run() @bci=4, line=542 (Interpreted frame)
+15:58:07  
+15:58:07  
+15:58:07  ];
+15:58:07   stderr: [sun.jvm.hotspot.debugger.UnalignedAddressException: 1
+15:58:07  	at jdk.hotspot.agent/sun.jvm.hotspot.debugger.windbg.WindbgDebuggerLocal$1.checkAlignment(WindbgDebuggerLocal.java:106)
+15:58:07  	at jdk.hotspot.agent/sun.jvm.hotspot.debugger.DebuggerBase.readCInteger(DebuggerBase.java:357)
+15:58:07  	at jdk.hotspot.agent/sun.jvm.hotspot.debugger.DebuggerBase.readAddressValue(DebuggerBase.java:462)
+15:58:07  	at jdk.hotspot.agent/sun.jvm.hotspot.debugger.windbg.WindbgDebuggerLocal.readAddress(WindbgDebuggerLocal.java:312)
+15:58:07  	at jdk.hotspot.agent/sun.jvm.hotspot.debugger.windbg.WindbgAddress.getAddressAt(WindbgAddress.java:71)
+15:58:07  	at jdk.hotspot.agent/sun.jvm.hotspot.runtime.x86.X86Frame.getLink(X86Frame.java:424)
+15:58:07  	at jdk.hotspot.agent/sun.jvm.hotspot.runtime.x86.X86Frame.sender(X86Frame.java:297)
+15:58:07  	at jdk.hotspot.agent/sun.jvm.hotspot.runtime.Frame.sender(Frame.java:207)
+15:58:07  	at jdk.hotspot.agent/sun.jvm.hotspot.runtime.Frame.realSender(Frame.java:212)
+15:58:07  	at jdk.hotspot.agent/sun.jvm.hotspot.runtime.VFrame.sender(VFrame.java:119)
+15:58:07  	at jdk.hotspot.agent/sun.jvm.hotspot.runtime.VFrame.javaSender(VFrame.java:148)
+15:58:07  	at jdk.hotspot.agent/sun.jvm.hotspot.tools.StackTrace.run(StackTrace.java:81)
+15:58:07  	at jdk.hotspot.agent/sun.jvm.hotspot.tools.StackTrace.run(StackTrace.java:45)
+15:58:07  	at jdk.hotspot.agent/sun.jvm.hotspot.tools.JStack.run(JStack.java:67)
+15:58:07  	at jdk.hotspot.agent/sun.jvm.hotspot.tools.Tool.startInternal(Tool.java:278)
+15:58:07  	at jdk.hotspot.agent/sun.jvm.hotspot.tools.Tool.start(Tool.java:241)
+15:58:07  	at jdk.hotspot.agent/sun.jvm.hotspot.tools.Tool.execute(Tool.java:134)
+15:58:07  	at jdk.hotspot.agent/sun.jvm.hotspot.tools.JStack.runWithArgs(JStack.java:90)
+15:58:07  	at jdk.hotspot.agent/sun.jvm.hotspot.SALauncher.runJSTACK(SALauncher.java:302)
+15:58:07  	at jdk.hotspot.agent/sun.jvm.hotspot.SALauncher.main(SALauncher.java:500)
+15:58:07  ]
+15:58:07   exitValue = 0
+15:58:07  
+15:58:07  java.lang.RuntimeException: stderr was not empty
+15:58:07  	at jdk.test.lib.process.OutputAnalyzer.stderrShouldBeEmptyIgnoreDeprecatedWarnings(OutputAnalyzer.java:177)
+15:58:07  	at ClhsdbJstackXcompStress.runJstackInLoop(ClhsdbJstackXcompStress.java:77)
+15:58:07  	at ClhsdbJstackXcompStress.main(ClhsdbJstackXcompStress.java:100)
+15:58:07  	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+15:58:07  	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+15:58:07  	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+15:58:07  	at java.base/java.lang.reflect.Method.invoke(Method.java:569)
+15:58:07  	at com.sun.javatest.regtest.agent.MainActionHelper$AgentVMRunnable.run(MainActionHelper.java:333)
+15:58:07  	at java.base/java.lang.Thread.run(Thread.java:840)
+15:58:07  java.lang.RuntimeException: stderr was not empty
+15:58:07  	at jdk.test.lib.process.OutputAnalyzer.stderrShouldBeEmptyIgnoreDeprecatedWarnings(OutputAnalyzer.java:177)
+15:58:07  	at ClhsdbJstackXcompStress.runJstackInLoop(ClhsdbJstackXcompStress.java:77)
+15:58:07  	at ClhsdbJstackXcompStress.main(ClhsdbJstackXcompStress.java:100)
+15:58:07  	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+15:58:07  	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+15:58:07  	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+15:58:07  	at java.base/java.lang.reflect.Method.invoke(Method.java:569)
+15:58:07  	at com.sun.javatest.regtest.agent.MainActionHelper$AgentVMRunnable.run(MainActionHelper.java:333)
+15:58:07  	at java.base/java.lang.Thread.run(Thread.java:840)
+...
+```
