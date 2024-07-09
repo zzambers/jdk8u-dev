@@ -1400,6 +1400,13 @@ jobs:
       - name: Select Xcode version
         run: sudo xcode-select --switch /Applications/Xcode_14.3.1.app/Contents/Developer
 
+      - name: Fix unknown hostname
+        run: |
+          hostname
+          cat /etc/hosts
+          echo "127.0.0.1 $( hostname )" | sudo tee -a /etc/hosts
+          cat /etc/hosts
+
       - name: Configure
         run: >
           bash configure
@@ -1516,6 +1523,13 @@ jobs:
 
       - name: Select Xcode version
         run: sudo xcode-select --switch /Applications/Xcode_14.3.1.app/Contents/Developer
+
+      - name: Fix unknown hostname
+        run: |
+          hostname
+          cat /etc/hosts
+          echo "127.0.0.1 $( hostname )" | sudo tee -a /etc/hosts
+          cat /etc/hosts
 
       - name: Run tests
         run: >
