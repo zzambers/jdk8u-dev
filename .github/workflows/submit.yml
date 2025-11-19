@@ -1414,6 +1414,20 @@ jobs:
       - name: Select Xcode version
         run: sudo xcode-select --switch /Applications/Xcode_16.4.app/Contents/Developer
 
+      - name: Checkout the Apple Openjdk
+        uses: actions/checkout@v4
+        with:
+          repository: apple/openjdk
+          path: appleopenjdk
+
+      - name: Copy missing JNF files
+        run: |
+          sudo mkdir /Applications/Xcode_16.4.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.5.sdk/System/Library/Frameworks/JavaNativeFoundation.framework/Versions/Current/Headers
+          sudo cp appleopenjdk/apple/JavaNativeFoundation/JavaNativeFoundation/*.h /Applications/Xcode_16.4.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.5.sdk/System/Library/Frameworks/JavaNativeFoundation.framework/Versions/Current/Headers/
+          sudo cp -R appleopenjdk/apple/JavaNativeFoundation/JavaNativeFoundation/Modules /Applications/Xcode_16.4.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.5.sdk/System/Library/Frameworks/JavaNativeFoundation.framework/Versions/Current/
+          sudo ln -s Versions/Current/Headers /Applications/Xcode_16.4.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.5.sdk/System/Library/Frameworks/JavaNativeFoundation.framework/Headers
+          sudo ln -s Versions/Current/Modules /Applications/Xcode_16.4.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.5.sdk/System/Library/Frameworks/JavaNativeFoundation.framework/Modules
+
       - name: Configure
         run: >
           bash configure
@@ -1429,8 +1443,9 @@ jobs:
 
       - name: Build
         run: |
-          find / -name JavaNativeFoundation.h
-          find -L /Applications/Xcode_16.4.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.5.sdk
+          ls -lah /Applications/Xcode_16.4.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs
+          find -L /Applications/Xcode_16.4.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.5.sdk/System/Library/Frameworks/JavaNativeFoundation.framework/
+          ls -lah /Applications/Xcode_16.4.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.5.sdk/System/Library/Frameworks/OpenGL.framework
           cat build/macos-x64/spec.gmk
           cat build/macos-x64/hotspot-spec.gmk
           make CONF_NAME=macos-x64 LOG_LEVEL=debug images
