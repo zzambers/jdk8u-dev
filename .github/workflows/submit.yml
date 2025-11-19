@@ -1426,7 +1426,9 @@ jobs:
         working-directory: jdk
 
       - name: Build
-        run: make CONF_NAME=macos-x64 images
+        run: |
+          find -L /Applications/Xcode_14.3.1.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.3.sdk
+          make CONF_NAME=macos-x64 images
         working-directory: jdk
 
       - name: Pack artifacts
